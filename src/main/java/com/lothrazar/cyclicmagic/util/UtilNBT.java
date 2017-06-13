@@ -1,5 +1,6 @@
 package com.lothrazar.cyclicmagic.util;
 import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.player.EntityPlayer;
@@ -168,5 +169,29 @@ public class UtilNBT {
   }
   public static ItemStack itemFromNBT(NBTTagCompound tag) {
     return new ItemStack(tag);
+  }
+  public static void writeBlockPosAt(NBTTagCompound tags, String key, BlockPos val) {
+    tags.setString(key, posToStringCSV(val));
+  }
+  public static BlockPos readBlockPosAt(NBTTagCompound tags, String key) {
+    return stringCSVToBlockPos(tags.getString(key));
+  }
+  public static NBTTagCompound writeBlockPos(List<BlockPos> actuallyDestroyed) {
+    NBTTagCompound tags = new NBTTagCompound();
+    int i = 0;
+    for (BlockPos p : actuallyDestroyed) {
+      writeBlockPosAt(tags, i + "", p);
+      i++;
+    }
+    tags.setInteger("max", i);
+    return tags;
+  }
+  public static List<BlockPos> readBlockPos(NBTTagCompound tags) {
+    List<BlockPos> pos = new ArrayList<BlockPos>();
+    int max = tags.getInteger("max");
+    for (int i = 0; i < max; i++) {
+      pos.add(readBlockPosAt(tags, i + ""));
+    }
+    return pos;
   }
 }

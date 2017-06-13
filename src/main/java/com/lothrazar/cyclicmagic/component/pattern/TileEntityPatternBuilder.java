@@ -7,6 +7,7 @@ import com.lothrazar.cyclicmagic.util.UtilItemStack;
 import com.lothrazar.cyclicmagic.util.UtilParticle;
 import com.lothrazar.cyclicmagic.util.UtilShape;
 import com.lothrazar.cyclicmagic.util.UtilSound;
+import com.lothrazar.cyclicmagic.util.UtilWorld;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -111,7 +112,7 @@ public class TileEntityPatternBuilder extends TileEntityBaseMachineInvo implemen
           this.decrStackSize(slot, 1);
           SoundType type = UtilSound.getSoundFromBlockstate(stateToMatch, world, posTarget);
           if (type != null && type.getPlaceSound() != null) {
-            int dim = this.getDimension();
+            int dim = UtilWorld.getDimension(this.world);
             int range = 18;
             UtilSound.playSoundFromServer(type.getPlaceSound(), SoundCategory.BLOCKS, posTarget, dim, range);
           }

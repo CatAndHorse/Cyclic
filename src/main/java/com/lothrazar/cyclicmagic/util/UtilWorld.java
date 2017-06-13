@@ -29,6 +29,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public class UtilWorld {
+  public static int getDimension(World world) {
+  if (world == null || world.provider == null) { return 0; }
+  return world.provider.getDimension();
+}
   // 1 chunk is 16x16 blocks
   public static int blockToChunk(int blockVal) {
     return blockVal >> 4; // ">>4" == "/16"
