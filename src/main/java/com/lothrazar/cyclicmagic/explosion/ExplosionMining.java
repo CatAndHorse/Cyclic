@@ -8,7 +8,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.lothrazar.cyclicmagic.ModCyclic;
-import com.lothrazar.cyclicmagic.net.PacketSyncBlocksAirClient;
+import com.lothrazar.cyclicmagic.net.PacketSyncBlocksAirExplosion;
 import com.lothrazar.cyclicmagic.util.UtilWorld;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -198,19 +198,21 @@ public class ExplosionMining extends Explosion {
             //                      block.dropBlockAsItemWithChance(this.world, blockpos, this.world.getBlockState(blockpos), 1.0F / this.explosionSize, 0);
           }
           block.onBlockExploded(this.world, blockpos, this);
+          this.world.markChunkDirty(blockpos, null);
           actuallyDestroyed.add(blockpos);
         }
       }
       //holy moly. 
       /*
-[23:50:44] [Client thread/INFO] [cyclicmagic]: done exploding; isRemote= true size 988
-[23:50:49] [Server thread/INFO] [cyclicmagic]: done exploding; isRemote= false size 1005
+[23:50:44] [Client thread/INFO] [cyclicmagic]: done exploding; isRemote= true size 988//client
+[23:50:49] [Server thread/INFO] [cyclicmagic]: done exploding; isRemote= false size 1005//server
 */
       String clien = (world.isRemote) ? "client":"server";
       ModCyclic.logger.info("done exploding; = "+clien+" # set to air is = "+actuallyDestroyed.size());
-      if(world.isRemote == false){
-        //server to client force sync eh
-        ModCyclic.network.sendToAllAround( new PacketSyncBlocksAirClient(actuallyDestroyed), new NetworkRegistry.TargetPoint( UtilWorld.getDimension(this.world)
+      if(world.isRemote==false){
+//wat happens is. the clients have blocks that  it THINKS are air, but they are NOT air
+        //so the server knows they are not exploded
+        ModCyclic.network.sendToAllAround( new PacketSyncBlocksAirExplosion(actuallyDestroyed), new NetworkRegistry.TargetPoint( UtilWorld.getDimension(this.world)
             ,  this.explosionX, this.explosionY, this.explosionZ, 16)); 
       
       }

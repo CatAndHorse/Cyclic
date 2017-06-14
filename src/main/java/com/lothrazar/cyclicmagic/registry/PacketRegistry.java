@@ -40,7 +40,7 @@ import com.lothrazar.cyclicmagic.net.PacketRestockContainerToPlayer;
 import com.lothrazar.cyclicmagic.net.PacketSleepClient;
 import com.lothrazar.cyclicmagic.net.PacketSound;
 import com.lothrazar.cyclicmagic.net.PacketSwapBlock;
-import com.lothrazar.cyclicmagic.net.PacketSyncBlocksAirClient;
+import com.lothrazar.cyclicmagic.net.PacketSyncBlocksAirExplosion;
 import com.lothrazar.cyclicmagic.net.PacketSyncPlayerData;
 import com.lothrazar.cyclicmagic.net.PacketSyncPlayerFlying;
 import com.lothrazar.cyclicmagic.net.PacketSyncPlayerHealth;
@@ -100,7 +100,7 @@ public class PacketRegistry {
     network.registerMessage(PacketTilePylon.class, PacketTilePylon.class, packetID++, Side.SERVER);
     network.registerMessage(PacketSound.class, PacketSound.class, packetID++, Side.CLIENT);
 
-    network.registerMessage(PacketSyncBlocksAirClient.class, PacketSyncBlocksAirClient.class, packetID++, Side.CLIENT);
+    network.registerMessage(PacketSyncBlocksAirExplosion.class, PacketSyncBlocksAirExplosion.class, packetID++, Side.CLIENT);
     
   }
 }

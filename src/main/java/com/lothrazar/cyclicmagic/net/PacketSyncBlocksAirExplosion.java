@@ -13,10 +13,10 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class PacketSyncBlocksAirClient implements IMessage, IMessageHandler<PacketSyncBlocksAirClient, IMessage> {
+public class PacketSyncBlocksAirExplosion implements IMessage, IMessageHandler<PacketSyncBlocksAirExplosion, IMessage> {
   NBTTagCompound tags = new NBTTagCompound();
-  public PacketSyncBlocksAirClient() {}
-  public PacketSyncBlocksAirClient(List<BlockPos> actuallyDestroyed) {
+  public PacketSyncBlocksAirExplosion() {}
+  public PacketSyncBlocksAirExplosion(List<BlockPos> actuallyDestroyed) {
     tags = UtilNBT.writeBlockPos(actuallyDestroyed);//new NBTTagCompound();
   }
   @Override
@@ -28,10 +28,10 @@ public class PacketSyncBlocksAirClient implements IMessage, IMessageHandler<Pack
     ByteBufUtils.writeTag(buf, this.tags);
   }
   @Override
-  public IMessage onMessage(PacketSyncBlocksAirClient message, MessageContext ctx) {
+  public IMessage onMessage(PacketSyncBlocksAirExplosion message, MessageContext ctx) {
     if (ctx.side == Side.CLIENT) {
       //update it through client proxy
-      PacketSyncBlocksAirClient.checkThreadAndEnqueue(message, ctx);
+      PacketSyncBlocksAirExplosion.checkThreadAndEnqueue(message, ctx);
     }
     return null;
   }
@@ -41,22 +41,17 @@ public class PacketSyncBlocksAirClient implements IMessage, IMessageHandler<Pack
    * tutorial/network/AbstractMessage.java#L118-L131
    * http://www.minecraftforge.net/forum/index.php?topic=31853.0
    */
-  private static final void checkThreadAndEnqueue(final PacketSyncBlocksAirClient message, final MessageContext ctx) {
+  private static final void checkThreadAndEnqueue(final PacketSyncBlocksAirExplosion message, final MessageContext ctx) {
     IThreadListener thread = ModCyclic.proxy.getThreadFromContext(ctx);
     // pretty much copied straight from vanilla code, see {@link PacketThreadUtil#checkThreadAndEnqueue}
     thread.addScheduledTask(new Runnable() {
       public void run() {
-        List<BlockPos> pos = UtilNBT.readBlockPos(message.tags);
-        ModCyclic.logger.info("net size " + pos.size());
+        List<BlockPos> list = UtilNBT.readBlockPos(message.tags);
+        ModCyclic.logger.info("net size " + list.size());
         World w = ModCyclic.proxy.getClientWorld();
         int fixes = 0;
-        for (BlockPos p : pos) {
-          //fff... might not work.  i fond a ghost block wit this check in place
-          if (w.isAirBlock(p) == false) {
-            if (!w.setBlockToAir(p)) {
-              ModCyclic.logger.info(" !!! fix FAILED?   " + w.getBlockState(p).getBlock());
-            }
-          }
+        for (BlockPos pos : list) {
+          w.markChunkDirty(pos, null);
         }
         //      
       }
