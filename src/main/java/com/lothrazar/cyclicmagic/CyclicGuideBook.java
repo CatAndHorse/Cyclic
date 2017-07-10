@@ -119,7 +119,7 @@ public class CyclicGuideBook implements IGuideBook {
           item.iconStack =  new ItemStack(item.recipeBlock);
         }
       }
-      ModCyclic.logger.info(item.iconStack.getItem() + " REC EH" + item.iconStack.getUnlocalizedName() + " " + recs.size());
+      //ModCyclic.logger.info(item.iconStack.getItem() + " REC EH" + item.iconStack.getUnlocalizedName() + " " + recs.size());
       for (IRecipe r : recs) {
         pages.add(new PageIRecipe(r));
       }
