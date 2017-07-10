@@ -8,6 +8,15 @@ import com.lothrazar.cyclicmagic.block.BlockDimensionOre;
 import com.lothrazar.cyclicmagic.block.IBlockHasTESR;
 import com.lothrazar.cyclicmagic.block.IHasOreDict;
 import com.lothrazar.cyclicmagic.data.Const;
+import com.lothrazar.cyclicmagic.item.bauble.ItemAutoTorch;
+import com.lothrazar.cyclicmagic.item.bauble.ItemCharmAir;
+import com.lothrazar.cyclicmagic.item.bauble.ItemCharmAntidote;
+import com.lothrazar.cyclicmagic.item.bauble.ItemCharmBoat;
+import com.lothrazar.cyclicmagic.item.bauble.ItemCharmFire;
+import com.lothrazar.cyclicmagic.item.bauble.ItemCharmSlowfall;
+import com.lothrazar.cyclicmagic.item.bauble.ItemCharmSpeed;
+import com.lothrazar.cyclicmagic.item.bauble.ItemCharmVoid;
+import com.lothrazar.cyclicmagic.item.bauble.ItemCharmWater;
 import com.lothrazar.cyclicmagic.registry.GuideRegistry.GuideCategory;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -27,10 +36,50 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemRegistry {
-  
-  
-  
+public static ItemCharmAir charm_air = new ItemCharmAir();
+public static ItemCharmSpeed charm_speed = new ItemCharmSpeed();
+public static ItemAutoTorch tool_auto_torch = new ItemAutoTorch();
+public static ItemCharmFire charm_fire = new ItemCharmFire();
+public static ItemCharmSlowfall charm_wing = new ItemCharmSlowfall();
+public static ItemCharmWater charm_water = new ItemCharmWater();
+public static ItemCharmVoid charm_void = new ItemCharmVoid();
+public static ItemCharmAntidote charm_antidote = new ItemCharmAntidote();
+public static ItemCharmBoat charm_boat = new ItemCharmBoat();
+
   public static void init(){
+
+ 
+      ItemRegistry.register(charm_air, "charm_air", GuideCategory.ITEMBAUBLES);
+      ModCyclic.instance.events.register(charm_air);
+      LootTableRegistry.registerLoot(charm_air);
+     
+      ItemRegistry.register(charm_fire, "charm_fire", GuideCategory.ITEMBAUBLES);
+      LootTableRegistry.registerLoot(charm_fire);
+   //   ItemRegistry.registerWithJeiDescription(charm_fire);
+  
+      ItemRegistry.register(charm_boat, "charm_boat", GuideCategory.ITEMBAUBLES);
+   //   ItemRegistry.registerWithJeiDescription(charm_boat);
+    
+      ItemRegistry.register(charm_void, "charm_void", GuideCategory.ITEMBAUBLES);
+      LootTableRegistry.registerLoot(charm_void);
+    //   ItemRegistry.registerWithJeiDescription(charm_void);
+   
+      ItemRegistry.register(charm_water, "charm_water", GuideCategory.ITEMBAUBLES);
+   
+      ItemRegistry.register(charm_antidote, "charm_antidote", GuideCategory.ITEMBAUBLES);
+      LootTableRegistry.registerLoot(charm_antidote);
+    
+      ItemRegistry.register(charm_wing, "charm_wing", GuideCategory.ITEMBAUBLES);
+      LootTableRegistry.registerLoot(charm_wing);
+     // ItemRegistry.registerWithJeiDescription(charm_wing);
+   
+      ItemRegistry.register(tool_auto_torch, "tool_auto_torch", GuideCategory.ITEMBAUBLES);
+      ModCyclic.instance.events.register(tool_auto_torch);
+      LootTableRegistry.registerLoot(tool_auto_torch);
+     // ItemRegistry.registerWithJeiDescription(tool_auto_torch);
+   
+      ItemRegistry.register(charm_speed, "charm_speed", GuideCategory.ITEMBAUBLES);
+     // ItemRegistry.registerWithJeiDescription(charm_speed);
     
   }
   
@@ -46,7 +95,7 @@ public class ItemRegistry {
     if (item instanceof IHasConfig) {
       ConfigRegistry.register((IHasConfig) item);
     }
-    IRecipe recipe = null;
+   // IRecipe recipe = null;
 //    if (item instanceof IHasRecipe) {
 //      recipe = ((IHasRecipe) item).addRecipe();
 //    }
@@ -57,9 +106,7 @@ public class ItemRegistry {
   public static void register(Item item, String key) {
     register(item, key, GuideCategory.ITEM);//defaults to in guide book with its own standalone page
   }
-  public static void registerWithJeiDescription(Item item) {
-    JeiDescriptionRegistry.registerWithJeiDescription(item);
-  }
+ 
   @SubscribeEvent
   public static void onRegistryEvent(RegistryEvent.Register<Item> event) {
     // event.getRegistry().registerAll(ItemRegistry.itemMap.values().toArray(new Item[0]));

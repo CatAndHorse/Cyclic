@@ -208,9 +208,9 @@ public class BlockRegistry {
       //if recipe  is hidden, dont put in guidebook also eh
       GuideRegistry.register(cat, b, null);
     }
-    if (!(b instanceof BlockCropMagicBean)) { //TODO FIX dirty hack to skip sprout
-      JeiDescriptionRegistry.registerWithJeiDescription(b);
-    }
+//    if (!(b instanceof BlockCropMagicBean)) { //TODO FIX dirty hack to skip sprout
+//      JeiDescriptionRegistry.registerWithJeiDescription(b);
+//    }
   }
   @SubscribeEvent
   public static void onRegistryEvent(RegistryEvent.Register<Block> event) {
