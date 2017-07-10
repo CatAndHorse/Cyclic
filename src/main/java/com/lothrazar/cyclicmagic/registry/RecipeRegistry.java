@@ -1,9 +1,12 @@
 package com.lothrazar.cyclicmagic.registry;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
 import com.google.common.collect.Lists;
+import com.lothrazar.cyclicmagic.JEIPlugin;
 import com.lothrazar.cyclicmagic.data.Const;
 import net.minecraft.block.Block;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -13,7 +16,12 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -144,5 +152,82 @@ public class RecipeRegistry {
     IRecipe r = new ShapedOreRecipe(location, stack, recipeComponents);
     //    GameRegistry.addRecipe(r);
     return r;
+  }
+  /**
+   * used in two places: 1 is actually remove the recipe 2 is hide it in JEI
+   * using plugin
+   */
+  public static List<Item> hiddenItems = new ArrayList<Item>();
+  public static List<Block> hiddenBlocks = new ArrayList<Block>();
+  public static void queueForRemoval(Block s) {
+    hiddenBlocks.add(s);
+  }
+  public static void queueForRemoval(Item s) {
+    hiddenItems.add(s);
+  }
+  public static void processRemovals() {
+    for (Block b : hiddenBlocks)
+      for (IRecipe recipe : CraftingManager.REGISTRY) {
+        ItemStack hideMeStack = new ItemStack(b);
+        if (ItemStack.areItemsEqual(hideMeStack, recipe.getRecipeOutput())) {
+          System.out.println("REMOVE RECIPE " + recipe.getRecipeOutput().getItem().getUnlocalizedName());
+          removeRecipe(recipe);
+        }
+      }
+    for (Item b : hiddenItems)
+      for (IRecipe recipe : CraftingManager.REGISTRY) {
+        ItemStack hideMeStack = new ItemStack(b);
+        if (ItemStack.areItemsEqual(hideMeStack, recipe.getRecipeOutput())) {
+          System.out.println("REMOVE RECIPE " + recipe.getRecipeOutput().getItem().getUnlocalizedName());
+          removeRecipe(recipe);
+        }
+      }
+  }
+  //https://github.com/modmuss50/RecipeManipulator/blob/master/src/main/java/me/modmuss50/rm/RecipeManipulator.java
+  //  @SubscribeEvent
+  //  public static void onRegistryEvent(RegistryEvent.Register<IRecipe> event) {
+  //    event.getRegistry().remo
+  //    
+  //  }
+  public static void removeRecipe(IRecipe recipe) {
+    ForgeRegistries.RECIPES.register(new BlankRecipe(recipe));
+  }
+  private static class BlankRecipe implements IRecipe {
+    IRecipe oldRecipe;
+    public BlankRecipe(IRecipe oldRecipe) {
+      this.oldRecipe = oldRecipe;
+    }
+    @Override
+    public ItemStack getRecipeOutput() {
+      return ItemStack.EMPTY;
+    }
+    @Override
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
+      return NonNullList.create();
+    }
+    @Override
+    public IRecipe setRegistryName(ResourceLocation name) {
+      return oldRecipe.setRegistryName(name);
+    }
+    @Override
+    public ResourceLocation getRegistryName() {
+      return oldRecipe.getRegistryName();
+    }
+    @Override
+    public Class<IRecipe> getRegistryType() {
+      return oldRecipe.getRegistryType();
+    }
+    @Override
+    public boolean matches(InventoryCrafting inv, World worldIn) {
+      return false;
+    }
+    @Override
+    public ItemStack getCraftingResult(InventoryCrafting inv) {
+      return ItemStack.EMPTY;
+    }
+    @Override
+    public boolean canFit(int width, int height) {
+      return false;
+    }
   }
 }

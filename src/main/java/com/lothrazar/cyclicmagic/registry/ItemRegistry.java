@@ -13,10 +13,12 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -98,4 +100,12 @@ public class ItemRegistry {
       ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(name, "inventory"));
     }
   }
+//  @SubscribeEvent
+//  public static void onRegistryRecipeEvent(RegistryEvent.Register<IRecipe> event) {
+//  //  event.re
+//    //CraftingManager.getRecipeById(id)
+//     
+////    event.getRegistry()
+//    System.out.println("onRegistryRecipeEvent onRegistryRecipeEvent onRegistryRecipeEvent");
+//  }
 }

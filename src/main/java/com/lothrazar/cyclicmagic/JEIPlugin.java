@@ -3,14 +3,25 @@ import com.lothrazar.cyclicmagic.component.crafter.ContainerCrafter;
 import com.lothrazar.cyclicmagic.component.playerext.crafting.ContainerPlayerExtWorkbench;
 import com.lothrazar.cyclicmagic.component.workbench.ContainerWorkBench;
 import com.lothrazar.cyclicmagic.registry.JeiDescriptionRegistry;
+import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
+import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 @mezz.jei.api.JEIPlugin
-public class JEIPlugin extends mezz.jei.api.BlankModPlugin {
+public class JEIPlugin implements  IModPlugin { //extends mezz.jei.api.BlankModPlugin {
+ 
   @Override
   public void register(IModRegistry registry) {
+   
+    
+    
+    hideRecipes( registry.getJeiHelpers());
+    
     ////////////////first register all crafting GUI's
     // thanks to http://www.minecraftforum.net/forums/mapping-and-modding/mapping-and-modding-tutorials/1571434-tutorial-modding-with-apis
     //and of course readme on https://github.com/mezz/JustEnoughItems
@@ -22,12 +33,12 @@ public class JEIPlugin extends mezz.jei.api.BlankModPlugin {
         36);//@param inventorySlotCount the number of slots of the available inventory //top right including hotbar =4*9
     //////////// now register description pages
     //no documentation found but i learned it from this OS https://github.com/Darkhax-Minecraft/Dark-Utilities/blob/a6422519b069ea71ccf83fc8545cd595c03b947c/src/main/java/net/darkhax/darkutils/addons/jei/DarkUtilsJEIPlugin.java
-    String lang;
-    //itemsJei
-    for (ItemStack s : JeiDescriptionRegistry.itemsJei) {
-      lang = s.getUnlocalizedName() + ".jei";
-      //      registry.addDescription(s, lang);
-    }
+//    String lang;
+//    //itemsJei
+//    for (ItemStack s : JeiDescriptionRegistry.itemsJei) {
+//      lang = s.getUnlocalizedName() + ".jei";
+//      //      registry.addDescription(s, lang);
+//    }
     //    for (Block item : BlockRegistry.itemsJei) {
     //      lang = item.getUnlocalizedName() + ".jei";
     //      registry.addDescription(new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE), lang);
@@ -42,5 +53,19 @@ public class JEIPlugin extends mezz.jei.api.BlankModPlugin {
         9, // @param recipeSlotCount    the number of slots for recipe inputs //3x3
         10, //@param inventorySlotStart the first slot of the available inventory (usually player inventory) =9
         4 * 9);//@param inventorySlotCount the number of slots of the available inventory //top right including hotbar =4*9
+  }
+
+  public void hideRecipes(IJeiHelpers jeiHelpers) {
+    for(Item i : RecipeRegistry.hiddenItems){
+      ItemStack s = new ItemStack(i);
+      System.out.println("JEIPlugin.jeiHelpers  WINNER "+s.getUnlocalizedName());
+      jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(s);
+    }
+    for(Block b : RecipeRegistry.hiddenBlocks){
+      ItemStack s = new ItemStack(b);
+
+      System.out.println("JEIPlugin.jeiHelpers  WINNER "+s.getUnlocalizedName());
+      jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(s);
+    }
   }
 }

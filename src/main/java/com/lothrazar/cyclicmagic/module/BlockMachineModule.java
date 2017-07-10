@@ -24,6 +24,7 @@ import com.lothrazar.cyclicmagic.component.uncrafter.TileEntityUncrafter;
 import com.lothrazar.cyclicmagic.data.Const;
 import com.lothrazar.cyclicmagic.registry.BlockRegistry;
 import com.lothrazar.cyclicmagic.registry.GuideRegistry.GuideCategory;
+import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -59,11 +60,11 @@ public class BlockMachineModule extends BaseModule implements IHasConfig {
       BlockRegistry.registerBlock(harvester_block, "harvester_block", GuideCategory.BLOCKMACHINE);
       GameRegistry.registerTileEntity(TileEntityHarvester.class, "harveseter_te");
     }
-    if (enableUncrafter) {
-      BlockUncrafting uncrafting_block = new BlockUncrafting();
-      BlockRegistry.registerBlock(uncrafting_block, "uncrafting_block", GuideCategory.BLOCKMACHINE);
-      GameRegistry.registerTileEntity(TileEntityUncrafter.class, "uncrafting_block_te");
-    }
+    BlockUncrafting uncrafting_block = new BlockUncrafting();
+    BlockRegistry.registerBlock(uncrafting_block, "uncrafting_block", GuideCategory.BLOCKMACHINE);
+    GameRegistry.registerTileEntity(TileEntityUncrafter.class, "uncrafting_block_te");
+    if (!enableUncrafter)
+      RecipeRegistry.queueForRemoval(uncrafting_block);
     if (enableMiner) {
       BlockMiner miner_block = new BlockMiner();
       BlockRegistry.registerBlock(miner_block, "block_miner", GuideCategory.BLOCKMACHINE);
