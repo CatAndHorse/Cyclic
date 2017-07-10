@@ -123,13 +123,15 @@ public class GuideRegistry {
   }
   public static class GuideItem {
     public GuideCategory cat;
-    public ItemStack icon;
+    public ItemStack iconItem;
+//    public Item iconItem;
+//    public Block iconiconBlock;
     public String title;
     public boolean findRecipes = false;
     public List<GuidePage> pages = new ArrayList<GuidePage>();
     public GuideItem(@Nonnull GuideCategory cat, @Nonnull ItemStack icon, @Nonnull String title, @Nonnull String text) {
       this.cat = cat;
-      this.icon = icon;
+      this.iconItem = icon;
       this.title = UtilChat.lang(title);
       if (text != null) {
         this.pages.add(new GuidePage(UtilChat.lang(text)));

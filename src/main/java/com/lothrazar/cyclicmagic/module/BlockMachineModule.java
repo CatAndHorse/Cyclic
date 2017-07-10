@@ -63,8 +63,9 @@ public class BlockMachineModule extends BaseModule implements IHasConfig {
     BlockUncrafting uncrafting_block = new BlockUncrafting();
     BlockRegistry.registerBlock(uncrafting_block, "uncrafting_block", GuideCategory.BLOCKMACHINE);
     GameRegistry.registerTileEntity(TileEntityUncrafter.class, "uncrafting_block_te");
-    if (!enableUncrafter)
+    if (!enableUncrafter){
       RecipeRegistry.queueForRemoval(uncrafting_block);
+    }
     if (enableMiner) {
       BlockMiner miner_block = new BlockMiner();
       BlockRegistry.registerBlock(miner_block, "block_miner", GuideCategory.BLOCKMACHINE);

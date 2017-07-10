@@ -4,6 +4,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import com.google.common.collect.Lists;
 import com.lothrazar.cyclicmagic.JEIPlugin;
+import com.lothrazar.cyclicmagic.ModCyclic;
 import com.lothrazar.cyclicmagic.data.Const;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
@@ -170,7 +171,7 @@ public class RecipeRegistry {
       for (IRecipe recipe : CraftingManager.REGISTRY) {
         ItemStack hideMeStack = new ItemStack(b);
         if (ItemStack.areItemsEqual(hideMeStack, recipe.getRecipeOutput())) {
-          System.out.println("REMOVE RECIPE " + recipe.getRecipeOutput().getItem().getUnlocalizedName());
+          ModCyclic.logger.info("REMOVE RECIPE " + recipe.getRecipeOutput().getItem().getUnlocalizedName());
           removeRecipe(recipe);
         }
       }

@@ -104,16 +104,20 @@ public class CyclicGuideBook implements IGuideBook {
         }
       }
       if (item.findRecipes) { 
-        List<IRecipe> recs = RecipeRegistry.getRecipesFor(item.icon);//super test
-//        System.out.println("REC EH" +item.icon.getUnlocalizedName() + " "+ recs.size());
-//        System.out.println("REC EH" +item.icon.getItem());
+        
+        //but first
+     
+        
+        List<IRecipe> recs = RecipeRegistry.getRecipesFor(item.iconItem);//super test
+        ModCyclic.logger.info(item.iconItem.getItem()+" REC EH" +item.iconItem.getUnlocalizedName() + " "+ recs.size());
+
         for (IRecipe r : recs) {
           pages.add(new PageIRecipe(r));
         }
         //p.recipe  =    CraftingManager.REGISTRY.g
         //pages.add(new PageIRecipe(p.recipe));
       }
-      addEntry(item.cat, pages, item.title, item.icon);
+      addEntry(item.cat, pages, item.title, item.iconItem);
     }
   }
   @Override

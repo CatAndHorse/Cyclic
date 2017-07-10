@@ -33,14 +33,17 @@ public class BlockRegistry {
     }
     b.setCreativeTab(ModCyclic.TAB);
     blocks.add(b);
-    IRecipe recipe = null;
+    IHasRecipe recipeMeta = null;
     if (b instanceof IHasConfig) {
       ConfigRegistry.register((IHasConfig) b);
     }
 //    if (b instanceof IHasRecipe) {
-//      recipe = ((IHasRecipe) b).addRecipe();
+//      recipeMeta = ((IHasRecipe) b);
 //    }
-    if (cat != null) {
+    if (cat != null  ) {
+     // boolean isHidden = (recipeMeta != null && recipeMeta.isHidden());
+      
+      //if recipe  is hidden, dont put in guidebook also eh
       GuideRegistry.register(cat, b,  null);
     }
     if (!(b instanceof BlockCropMagicBean)) { //TODO FIX dirty hack to skip sprout
