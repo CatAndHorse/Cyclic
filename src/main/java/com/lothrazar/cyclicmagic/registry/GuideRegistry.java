@@ -52,30 +52,32 @@ public class GuideRegistry {
   }
   public static GuideItem register(Enchantment ench, @Nonnull List<String> args) {
     args.add(ench.getRarity().name().toLowerCase().replace("_", " "));
-    return register(GuideCategory.ENCHANT, new ItemStack(Items.ENCHANTED_BOOK), ench.getName(), ench.getName() + SUFFIX,  args);
+    return register(GuideCategory.ENCHANT, new ItemStack(Items.ENCHANTED_BOOK), ench.getName(), ench.getName() + SUFFIX, args);
   }
   public static GuideItem register(GuideCategory cat, Block block) {
-    //    String pageTitle = block.getUnlocalizedName() + ".name";
-    //    String text = block.getUnlocalizedName() + SUFFIX;
-    return register(cat, block,  null);
+    return register(cat, block, null);
   }
-  public static GuideItem register(GuideCategory cat, Block block,   @Nullable List<String> args) {
+  public static GuideItem register(GuideCategory cat, Block block, @Nullable List<String> args) {
     String pageTitle = block.getUnlocalizedName() + ".name";
     String text = block.getUnlocalizedName() + SUFFIX;
-    return register(cat, new ItemStack(block), pageTitle, text, args);
+    GuideItem gItem = register(cat, new ItemStack(block), pageTitle, text, args);
+    gItem.recipeBlock = block;
+    return gItem;
   }
   public static GuideItem register(GuideCategory cat, Item item) {
-    return register(cat, item,  null);
+    return register(cat, item, null);
   }
-  public static GuideItem register(GuideCategory cat, Item item,  @Nullable List<String> args) {
+  public static GuideItem register(GuideCategory cat, Item item, @Nullable List<String> args) {
     String pageTitle = item.getUnlocalizedName() + ".name";
     String above = item.getUnlocalizedName() + SUFFIX;
-    return register(cat, new ItemStack(item), pageTitle, above, args);
+    GuideItem gItem = register(cat, new ItemStack(item), pageTitle, above, args);
+    gItem.recipeItem = item;
+    return gItem;
   }
   public static GuideItem register(GuideCategory cat, ItemStack icon, String title, String text) {
-    return register(cat, icon, title, text,  null);
+    return register(cat, icon, title, text, null);
   }
-  public static GuideItem register(GuideCategory cat, @Nonnull ItemStack icon, String title, String text,  @Nullable List<String> args) {
+  public static GuideItem register(GuideCategory cat, @Nonnull ItemStack icon, String title, String text, @Nullable List<String> args) {
     //layer of seperation between guidebook api. 1 for optional include and 2 in case i ever need to split it out and 3 for easy registering
     if (args != null && args.size() > 0) {
       text = UtilChat.lang(text);
@@ -86,11 +88,7 @@ public class GuideRegistry {
       }
     }
     GuideItem itempage = new GuideItem(cat, icon, title, text);
-    
-    
-      itempage.findRecipes = true;//ok why does this existLOL(recipes != null);
-      
-    
+    itempage.findRecipes = true;//ok why does this existLOL(recipes != null);
     items.add(itempage);
     return itempage;
   }
@@ -116,31 +114,29 @@ public class GuideRegistry {
     public GuidePage(String t) {
       text = t;
     }
-   
     public GuidePage(BrewingRecipe t) {
       brewRecipe = t;
     }
   }
   public static class GuideItem {
     public GuideCategory cat;
-    public ItemStack iconItem;
-//    public Item iconItem;
-//    public Block iconiconBlock;
+    public ItemStack iconStack;
+    public Item recipeItem;
+    public Block recipeBlock;
     public String title;
     public boolean findRecipes = false;
     public List<GuidePage> pages = new ArrayList<GuidePage>();
     public GuideItem(@Nonnull GuideCategory cat, @Nonnull ItemStack icon, @Nonnull String title, @Nonnull String text) {
       this.cat = cat;
-      this.iconItem = icon;
+      this.iconStack = icon;
       this.title = UtilChat.lang(title);
       if (text != null) {
         this.pages.add(new GuidePage(UtilChat.lang(text)));
       }
-//      if (recipe != null) {
-//        this.pages.add(new GuidePage(recipe));
-//      }
+      //      if (recipe != null) {
+      //        this.pages.add(new GuidePage(recipe));
+      //      }
     }
- 
     public void addRecipePage(BrewingRecipe t) {
       if (t == null) { return; }
       this.pages.add(new GuidePage(t));

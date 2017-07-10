@@ -103,21 +103,26 @@ public class CyclicGuideBook implements IGuideBook {
           pages.add(new PageBrewingRecipe(p.brewRecipe));
         }
       }
-      if (item.findRecipes) { 
-        
+      if (item.findRecipes) {
         //but first
-     
-        
-        List<IRecipe> recs = RecipeRegistry.getRecipesFor(item.iconItem);//super test
-        ModCyclic.logger.info(item.iconItem.getItem()+" REC EH" +item.iconItem.getUnlocalizedName() + " "+ recs.size());
-
-        for (IRecipe r : recs) {
-          pages.add(new PageIRecipe(r));
+        if (item.recipeBlock != null) {
+          List<IRecipe> recs = RecipeRegistry.getRecipesFor(new ItemStack(item.recipeBlock));//super test
+          ModCyclic.logger.info(item.iconStack.getItem() + " REC EH" + item.iconStack.getUnlocalizedName() + " " + recs.size());
+          for (IRecipe r : recs) {
+            pages.add(new PageIRecipe(r));
+          }
+        }
+        if (item.recipeItem != null) {
+          List<IRecipe> recs = RecipeRegistry.getRecipesFor(new ItemStack(item.recipeItem));//super test
+          ModCyclic.logger.info(item.iconStack.getItem() + " REC EH" + item.iconStack.getUnlocalizedName() + " " + recs.size());
+          for (IRecipe r : recs) {
+            pages.add(new PageIRecipe(r));
+          }
         }
         //p.recipe  =    CraftingManager.REGISTRY.g
         //pages.add(new PageIRecipe(p.recipe));
       }
-      addEntry(item.cat, pages, item.title, item.iconItem);
+      addEntry(item.cat, pages, item.title, item.iconStack);
     }
   }
   @Override
@@ -151,7 +156,7 @@ public class CyclicGuideBook implements IGuideBook {
     book.setWelcomeMessage(UtilChat.lang("guide.welcome"));
     book.setAuthor("Lothrazar");
     book.setColor(Color.MAGENTA);
-  //  book.setCategoryList(categories);
+    //  book.setCategoryList(categories);
     book.setRegistryName(new ResourceLocation(Const.MODID, "guide"));
     book.setSpawnWithBook(true);
   }
@@ -164,5 +169,5 @@ public class CyclicGuideBook implements IGuideBook {
     buildPages();
     buildCategories();
     book.setCategoryList(categories);
-    }
+  }
 }
