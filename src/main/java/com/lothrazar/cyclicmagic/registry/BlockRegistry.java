@@ -203,7 +203,6 @@ public class BlockRegistry {
     }
     boolean isHidden = (recipeMeta != null && recipeMeta.isHidden());
     if (!isHidden) {
-      b.setCreativeTab(ModCyclic.TAB);
     }
     if (cat != null) {
       //if recipe  is hidden, dont put in guidebook also eh

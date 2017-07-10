@@ -60,69 +60,36 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockConfigModule extends BaseModule implements IHasConfig {
-  private boolean fragileEnabled;
-  private boolean fishingBlock;
-  private boolean enableBucketBlocks;
-  private boolean enableShearingBlock;
-  private boolean enableFan;
-  private boolean entityDetector;
-  private boolean disenchanter;
-  private boolean autoCrafter;
-  private boolean soundproofing;
-  private boolean workbench;
-  private boolean enableConveyor;
-  private boolean launchPads;
-  private boolean enableMagnet;
-  private boolean enableInterdict;
-  private boolean vectorPlate;
-  private boolean enableUncrafter;
-  private boolean enableBuilderBlock;
-  private boolean enableHarvester;
-  private boolean enableMiner;
-  private boolean enablePlacer;
-  private boolean enablePassword;
-  private boolean enableMinerSmart;
-  private boolean enableUser;
-  private boolean enablePattern;
-  private boolean expPylon;
   public void onPreInit() {
-    RecipeRegistry.toggleVisibility(BlockRegistry.auto_crafter, autoCrafter);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_soundproofing, this.soundproofing);
-    RecipeRegistry.toggleVisibility(BlockRegistry.workbench, this.workbench);
-    RecipeRegistry.toggleVisibility(BlockRegistry.detector, entityDetector);
-    RecipeRegistry.toggleVisibility(BlockRegistry.fan, enableFan);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_shears, enableShearingBlock);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_fragile, fragileEnabled);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_fragile_auto, fragileEnabled);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_fragile_weak, fragileEnabled);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_disenchanter, disenchanter);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_fishing, fishingBlock);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_storewater, enableBucketBlocks);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_storemilk, enableBucketBlocks);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_storelava, enableBucketBlocks);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_storeempty, enableBucketBlocks);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_miner_smart, enableMinerSmart);
-    RecipeRegistry.toggleVisibility(BlockRegistry.builder_pattern, enablePattern);
-    RecipeRegistry.toggleVisibility(BlockRegistry.builder_block, enableBuilderBlock);
-    RecipeRegistry.toggleVisibility(BlockRegistry.uncrafting_block, enableUncrafter);
-    RecipeRegistry.toggleVisibility(BlockRegistry.harvester_block, enableHarvester);
-    RecipeRegistry.toggleVisibility(BlockRegistry.miner_block, enableMiner);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_user, enableUser);
-    RecipeRegistry.toggleVisibility(BlockRegistry.password_block, enablePassword);
-    RecipeRegistry.toggleVisibility(BlockRegistry.magnet_block, enableMagnet);
-    RecipeRegistry.toggleVisibility(BlockRegistry.plate_launch_small, launchPads);
-    RecipeRegistry.toggleVisibility(BlockRegistry.plate_launch_med, launchPads);
-    RecipeRegistry.toggleVisibility(BlockRegistry.plate_launch_large, launchPads);
-    RecipeRegistry.toggleVisibility(BlockRegistry.magnet_anti_block, enableInterdict);
-    RecipeRegistry.toggleVisibility(BlockRegistry.plate_push_fast, enableConveyor);
-    RecipeRegistry.toggleVisibility(BlockRegistry.plate_push_slow, enableConveyor);
-    RecipeRegistry.toggleVisibility(BlockRegistry.plate_push_slowest, enableConveyor);
-    RecipeRegistry.toggleVisibility(BlockRegistry.plate_vector, vectorPlate);
-    RecipeRegistry.toggleVisibility(BlockRegistry.block_miner_smart, enablePlacer);
-    RecipeRegistry.toggleVisibility(BlockRegistry.exp_pylon, expPylon);
   }
   @Override
   public void syncConfig(Configuration config) {
+    //TOOD: fix this mess
+  boolean fragileEnabled;
+  boolean fishingBlock;
+  boolean enableBucketBlocks;
+  boolean enableShearingBlock;
+  boolean enableFan;
+  boolean entityDetector;
+  boolean disenchanter;
+  boolean autoCrafter;
+  boolean soundproofing;
+  boolean workbench;
+  boolean enableConveyor;
+  boolean launchPads;
+  boolean enableMagnet;
+  boolean enableInterdict;
+  boolean vectorPlate;
+  boolean enableUncrafter;
+  boolean enableBuilderBlock;
+  boolean enableHarvester;
+  boolean enableMiner;
+  boolean enablePlacer;
+  boolean enablePassword;
+  boolean enableMinerSmart;
+  boolean enableUser;
+  boolean enablePattern;
+  boolean expPylon;
     String category = Const.ConfigCategory.content;
     workbench = config.getBoolean("Workbench", category, true, Const.ConfigCategory.contentDefaultText);
     soundproofing = config.getBoolean("Soundproofing", category, true, Const.ConfigCategory.contentDefaultText);
@@ -155,5 +122,42 @@ public class BlockConfigModule extends BaseModule implements IHasConfig {
     enableUncrafter = config.getBoolean("UncraftingGrinder", Const.ConfigCategory.content, true, Const.ConfigCategory.contentDefaultText);
     enableMinerSmart = config.getBoolean("ControlledMiner", Const.ConfigCategory.content, true, Const.ConfigCategory.contentDefaultText);
     TileEntityControlledMiner.maxHeight = config.getInt("ControlledMiner.maxHeight", Const.ConfigCategory.modpackMisc, 32, 3, 128, "Maximum height of the controlled miner block that you can increase it to in the GUI");
+ 
+  
+
+    RecipeRegistry.toggleVisibility(BlockRegistry.auto_crafter, autoCrafter);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_soundproofing, soundproofing);
+    RecipeRegistry.toggleVisibility(BlockRegistry.workbench, workbench);
+    RecipeRegistry.toggleVisibility(BlockRegistry.detector, entityDetector);
+    RecipeRegistry.toggleVisibility(BlockRegistry.fan, enableFan);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_shears, enableShearingBlock);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_fragile, fragileEnabled);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_fragile_auto, fragileEnabled);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_fragile_weak, fragileEnabled);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_disenchanter, disenchanter);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_fishing, fishingBlock);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_storewater, enableBucketBlocks);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_storemilk, enableBucketBlocks);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_storelava, enableBucketBlocks);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_storeempty, enableBucketBlocks);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_miner_smart, enableMinerSmart);
+    RecipeRegistry.toggleVisibility(BlockRegistry.builder_pattern, enablePattern);
+    RecipeRegistry.toggleVisibility(BlockRegistry.builder_block, enableBuilderBlock);
+    RecipeRegistry.toggleVisibility(BlockRegistry.uncrafting_block, enableUncrafter);
+    RecipeRegistry.toggleVisibility(BlockRegistry.harvester_block, enableHarvester);
+    RecipeRegistry.toggleVisibility(BlockRegistry.miner_block, enableMiner);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_user, enableUser);
+    RecipeRegistry.toggleVisibility(BlockRegistry.password_block, enablePassword);
+    RecipeRegistry.toggleVisibility(BlockRegistry.magnet_block, enableMagnet);
+    RecipeRegistry.toggleVisibility(BlockRegistry.plate_launch_small, launchPads);
+    RecipeRegistry.toggleVisibility(BlockRegistry.plate_launch_med, launchPads);
+    RecipeRegistry.toggleVisibility(BlockRegistry.plate_launch_large, launchPads);
+    RecipeRegistry.toggleVisibility(BlockRegistry.magnet_anti_block, enableInterdict);
+    RecipeRegistry.toggleVisibility(BlockRegistry.plate_push_fast, enableConveyor);
+    RecipeRegistry.toggleVisibility(BlockRegistry.plate_push_slow, enableConveyor);
+    RecipeRegistry.toggleVisibility(BlockRegistry.plate_push_slowest, enableConveyor);
+    RecipeRegistry.toggleVisibility(BlockRegistry.plate_vector, vectorPlate);
+    RecipeRegistry.toggleVisibility(BlockRegistry.block_miner_smart, enablePlacer);
+    RecipeRegistry.toggleVisibility(BlockRegistry.exp_pylon, expPylon);
   }
 }

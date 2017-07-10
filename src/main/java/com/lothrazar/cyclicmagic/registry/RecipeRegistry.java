@@ -167,10 +167,13 @@ public class RecipeRegistry {
     hiddenItems.add(s);
   }
   public static void toggleVisibility(Block s, boolean visible) {
-    if (!visible)
+    if (!visible) {
       queueForRemoval(s);
-    else if (hiddenBlocks.contains(s))
+    }
+    else if (hiddenBlocks.contains(s)) {
       hiddenBlocks.remove(s);
+      s.setCreativeTab(ModCyclic.TAB);
+    }
   }
   public static void toggleVisibility(Item s, boolean visible) {
     if (!visible)
