@@ -1,10 +1,8 @@
 package com.lothrazar.cyclicmagic.registry;
 import java.util.ArrayList;
 import java.util.List;
-import com.lothrazar.cyclicmagic.IHasConfig;
-import com.lothrazar.cyclicmagic.module.BlockMachineModule;
-import com.lothrazar.cyclicmagic.module.BlockPlateModule;
-import com.lothrazar.cyclicmagic.module.BlockUtilityModule;
+import com.lothrazar.cyclicmagic.IHasConfig; 
+import com.lothrazar.cyclicmagic.module.BlockConfigModule;
 import com.lothrazar.cyclicmagic.module.CommandModule;
 import com.lothrazar.cyclicmagic.module.DispenserBehaviorModule;
 import com.lothrazar.cyclicmagic.module.EnchantModule;
@@ -46,10 +44,8 @@ public class ModuleRegistry {
     }
   }
   public static void registerAll() {
-    // :) http://alphabetizer.flap.tv/
-    register(new BlockMachineModule());
-    register(new BlockPlateModule());
-    register(new BlockUtilityModule());
+    // :) http://alphabetizer.flap.tv/ 
+    register(new BlockConfigModule());
     register(new CommandModule());
     register(new ItemConsumeablesModule());
     register(new ItemCharmModule());

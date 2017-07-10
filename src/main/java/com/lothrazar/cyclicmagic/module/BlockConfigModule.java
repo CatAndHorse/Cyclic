@@ -59,7 +59,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockUtilityModule extends BaseModule implements IHasConfig {
+public class BlockConfigModule extends BaseModule implements IHasConfig {
   private boolean fragileEnabled;
   private boolean fishingBlock;
   private boolean enableBucketBlocks;
@@ -86,7 +86,6 @@ public class BlockUtilityModule extends BaseModule implements IHasConfig {
   private boolean enablePattern;
   private boolean expPylon;
   public void onPreInit() {
-    BlockRegistry.init();
     RecipeRegistry.toggleVisibility(BlockRegistry.auto_crafter, autoCrafter);
     RecipeRegistry.toggleVisibility(BlockRegistry.block_soundproofing, this.soundproofing);
     RecipeRegistry.toggleVisibility(BlockRegistry.workbench, this.workbench);

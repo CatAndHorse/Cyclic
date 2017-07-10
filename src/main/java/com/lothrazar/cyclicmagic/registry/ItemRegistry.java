@@ -27,6 +27,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemRegistry {
+  
+  
+  
+  public static void init(){
+    
+  }
+  
+  
+  
   public static Map<String, Item> itemMap = new HashMap<String, Item>();
   public static void register(Item item, String key, GuideCategory cat) {
     item.setUnlocalizedName(key);

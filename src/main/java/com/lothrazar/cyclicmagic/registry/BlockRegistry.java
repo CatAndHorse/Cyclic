@@ -193,17 +193,19 @@ public class BlockRegistry {
       ib.setRegistryName(b.getRegistryName()); // ok good this should work yes? yes! http://mcforge.readthedocs.io/en/latest/blocks/blocks/#registering-a-block
       ItemRegistry.itemMap.put(name, ib);
     }
-    b.setCreativeTab(ModCyclic.TAB);
     blocks.add(b);
     IHasRecipe recipeMeta = null;
     if (b instanceof IHasConfig) {
       ConfigRegistry.register((IHasConfig) b);
     }
-    //    if (b instanceof IHasRecipe) {
-    //      recipeMeta = ((IHasRecipe) b);
-    //    }
+    if (b instanceof IHasRecipe) {
+      recipeMeta = ((IHasRecipe) b);
+    }
+    boolean isHidden = (recipeMeta != null && recipeMeta.isHidden());
+    if (!isHidden) {
+      b.setCreativeTab(ModCyclic.TAB);
+    }
     if (cat != null) {
-      // boolean isHidden = (recipeMeta != null && recipeMeta.isHidden());
       //if recipe  is hidden, dont put in guidebook also eh
       GuideRegistry.register(cat, b, null);
     }

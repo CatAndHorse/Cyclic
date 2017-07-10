@@ -45,6 +45,7 @@ import com.lothrazar.cyclicmagic.registry.GuideRegistry.GuideCategory;
 import com.lothrazar.cyclicmagic.registry.ItemRegistry;
 import com.lothrazar.cyclicmagic.registry.LootTableRegistry;
 import com.lothrazar.cyclicmagic.registry.LootTableRegistry.ChestType;
+import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
 import com.lothrazar.cyclicmagic.registry.SoundRegistry;
 import com.lothrazar.cyclicmagic.registry.SpellRegistry;
 import com.lothrazar.cyclicmagic.spell.ISpell;
@@ -149,6 +150,7 @@ public class ItemToolsModule extends BaseEventModule implements IHasConfig {
       ItemFangs evoker_fangs = new ItemFangs();
       ItemRegistry.register(evoker_fangs, "evoker_fang", GuideCategory.ITEM);
       LootTableRegistry.registerLoot(evoker_fangs);
+      RecipeRegistry.toggleVisibility(evoker_fangs, evokerFang);
     }
     if (enablePlayerLauncher) {
       ItemPlayerLauncher tool_launcher = new ItemPlayerLauncher();
