@@ -49,41 +49,31 @@ public class BlockPlateModule extends BaseModule implements IHasConfig {
       GuideItem page = GuideRegistry.register(GuideCategory.BLOCKPLATE, plate_launch_med);
       BlockLaunch plate_launch_small = new BlockLaunch(0.8F, SoundEvents.BLOCK_SLIME_STEP);
       BlockRegistry.registerBlock(plate_launch_small, "plate_launch_small", null);
-      page.findRecipes = true;
-//      page.addRecipePage(RecipeRegistry.addShapedRecipe(new ItemStack(plate_launch_small, 6),
-//          "sss", "ggg", "iii",
-//          's', "blockSlime",
-//          'g', Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE,
-//          'i', Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE));
-//      page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(plate_launch_med),
-//          new ItemStack(plate_launch_small),
-//          "gemQuartz"));
+ 
       //large
       BlockLaunch plate_launch_large = new BlockLaunch(1.8F, SoundEvents.BLOCK_SLIME_BREAK);
       BlockRegistry.registerBlock(plate_launch_large, "plate_launch_large", null);
-      page.findRecipes=true;
-//      page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(plate_launch_large),
-//          new ItemStack(plate_launch_med),
-//          "endstone"));
+ 
+ 
     }
     if (enableConveyor) {
       BlockConveyor plate_push = new BlockConveyor(0.16F);
       BlockRegistry.registerBlock(plate_push, "plate_push", null);
       GuideItem page = GuideRegistry.register(GuideCategory.BLOCKPLATE, plate_push);
 
-      page.findRecipes=true;
+ 
       plate_push_fast = new BlockConveyor(0.32F);
       BlockRegistry.registerBlock(plate_push_fast, "plate_push_fast", null);
 
-      page.findRecipes=true;
+ 
       BlockConveyor plate_push_slow = new BlockConveyor(0.08F);
       BlockRegistry.registerBlock(plate_push_slow, "plate_push_slow", null);
 
-      page.findRecipes=true;
+ 
       BlockConveyor plate_push_slowest = new BlockConveyor(0.04F);
       BlockRegistry.registerBlock(plate_push_slowest, "plate_push_slowest", null);
 
-      page.findRecipes=true;
+ 
     }
     if (vectorPlate) {
       BlockVectorPlate plate_vector = new BlockVectorPlate();
@@ -94,7 +84,7 @@ public class BlockPlateModule extends BaseModule implements IHasConfig {
       ItemStack top = (plate_launch_med == null) ? new ItemStack(Blocks.REDSTONE_LAMP) : new ItemStack(plate_launch_med);
       ItemStack base = (plate_push_fast == null) ? new ItemStack(Blocks.EMERALD_BLOCK) : new ItemStack(plate_push_fast);
 
-      page.findRecipes=true;
+ 
     }
   }
   @Override

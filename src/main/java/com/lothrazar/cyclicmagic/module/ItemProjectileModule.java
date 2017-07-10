@@ -130,7 +130,7 @@ public class ItemProjectileModule extends BaseModule implements IHasConfig {
       EntityDynamiteBlockSafe.renderSnowball = dynamite_safe;
       projectiles.add(dynamite_safe);
 
-      page.findRecipes=true;
+ 
     }
     if (magicNet) {
       ItemProjectileMagicNet magic_net = new ItemProjectileMagicNet();
@@ -147,9 +147,7 @@ public class ItemProjectileModule extends BaseModule implements IHasConfig {
       GuideItem page = GuideRegistry.register(GuideCategory.ITEMTHROW, dynamite_mining);
       EntityProjectileRegistry.registerModEntity(EntityDynamiteMining.class, "tntminingbolt", 1010);
       EntityDynamiteMining.renderSnowball = dynamite_mining;
-      projectiles.add(dynamite_mining);
-
-      page.findRecipes=true;
+      projectiles.add(dynamite_mining); 
     }
     if (enderBombsEnabled) {
       ItemProjectileTNT ender_tnt_1 = new ItemProjectileTNT(1, ExplosionType.NORMAL);

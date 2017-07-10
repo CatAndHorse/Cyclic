@@ -39,59 +39,48 @@ public class BlockMachineModule extends BaseModule implements IHasConfig {
   private boolean enableUser;
   private boolean enablePattern;
   private boolean expPylon;
-  public void onPreInit() {// onInit() {
-    if (expPylon) {
-      BlockXpPylon exp_pylon = new BlockXpPylon();
-      BlockRegistry.registerBlock(exp_pylon, "exp_pylon", GuideCategory.BLOCKMACHINE);
-      GameRegistry.registerTileEntity(TileEntityXpPylon.class, "exp_pylon_te");
-    }
-    if (enablePattern) {
-      BlockPatternBuilder builder_pattern = new BlockPatternBuilder();
-      BlockRegistry.registerBlock(builder_pattern, "builder_pattern", GuideCategory.BLOCKMACHINE);
-      GameRegistry.registerTileEntity(TileEntityPatternBuilder.class, "builder_pattern_te");
-    }
-    if (enableBuilderBlock) {
-      BlockStructureBuilder builder_block = new BlockStructureBuilder();
-      BlockRegistry.registerBlock(builder_block, "builder_block", GuideCategory.BLOCKMACHINE);
-      GameRegistry.registerTileEntity(TileEntityStructureBuilder.class, "builder_te");
-    }
-    if (enableHarvester) {
-      BlockHarvester harvester_block = new BlockHarvester();
-      BlockRegistry.registerBlock(harvester_block, "harvester_block", GuideCategory.BLOCKMACHINE);
-      GameRegistry.registerTileEntity(TileEntityHarvester.class, "harveseter_te");
-    }
+  public void onPreInit() {
+    BlockXpPylon exp_pylon = new BlockXpPylon();
+    BlockRegistry.registerBlock(exp_pylon, "exp_pylon", GuideCategory.BLOCKMACHINE);
+    GameRegistry.registerTileEntity(TileEntityXpPylon.class, "exp_pylon_te");
+    RecipeRegistry.toggleVisibility(exp_pylon, expPylon);
+    BlockPatternBuilder builder_pattern = new BlockPatternBuilder();
+    BlockRegistry.registerBlock(builder_pattern, "builder_pattern", GuideCategory.BLOCKMACHINE);
+    GameRegistry.registerTileEntity(TileEntityPatternBuilder.class, "builder_pattern_te");
+    RecipeRegistry.toggleVisibility(builder_pattern, enablePattern);
+    BlockStructureBuilder builder_block = new BlockStructureBuilder();
+    BlockRegistry.registerBlock(builder_block, "builder_block", GuideCategory.BLOCKMACHINE);
+    GameRegistry.registerTileEntity(TileEntityStructureBuilder.class, "builder_te");
+    RecipeRegistry.toggleVisibility(builder_block, enableBuilderBlock);
+    BlockHarvester harvester_block = new BlockHarvester();
+    BlockRegistry.registerBlock(harvester_block, "harvester_block", GuideCategory.BLOCKMACHINE);
+    GameRegistry.registerTileEntity(TileEntityHarvester.class, "harveseter_te");
+    RecipeRegistry.toggleVisibility(harvester_block, enableHarvester);
     BlockUncrafting uncrafting_block = new BlockUncrafting();
     BlockRegistry.registerBlock(uncrafting_block, "uncrafting_block", GuideCategory.BLOCKMACHINE);
     GameRegistry.registerTileEntity(TileEntityUncrafter.class, "uncrafting_block_te");
-    if (!enableUncrafter){
-      RecipeRegistry.queueForRemoval(uncrafting_block);
-    }
-    if (enableMiner) {
-      BlockMiner miner_block = new BlockMiner();
-      BlockRegistry.registerBlock(miner_block, "block_miner", GuideCategory.BLOCKMACHINE);
-      GameRegistry.registerTileEntity(TileEntityBlockMiner.class, "miner_te");
-    }
-    if (enableMinerSmart) {
-      BlockMinerSmart block_miner_smart = new BlockMinerSmart();
-      BlockRegistry.registerBlock(block_miner_smart, "block_miner_smart", GuideCategory.BLOCKMACHINE);
-      GameRegistry.registerTileEntity(TileEntityControlledMiner.class, Const.MODID + "miner_smart_te");
-    }
-    if (enablePlacer) {
-      BlockPlacer placer_block = new BlockPlacer();
-      BlockRegistry.registerBlock(placer_block, "placer_block", GuideCategory.BLOCKMACHINE);
-      GameRegistry.registerTileEntity(TileEntityPlacer.class, "placer_block_te");
-    }
-    if (enablePassword) {
-      BlockPassword password_block = new BlockPassword();
-      BlockRegistry.registerBlock(password_block, "password_block", GuideCategory.BLOCKMACHINE);
-      GameRegistry.registerTileEntity(TileEntityPassword.class, "password_block_te");
-      ModCyclic.instance.events.register(password_block);
-    }
-    if (enableUser) {
-      BlockUser block_user = new BlockUser();
-      BlockRegistry.registerBlock(block_user, "block_user", GuideCategory.BLOCKMACHINE);
-      GameRegistry.registerTileEntity(TileEntityUser.class, Const.MODID + "block_user_te");
-    }
+    RecipeRegistry.toggleVisibility(uncrafting_block, enableUncrafter);
+    BlockMiner miner_block = new BlockMiner();
+    BlockRegistry.registerBlock(miner_block, "block_miner", GuideCategory.BLOCKMACHINE);
+    GameRegistry.registerTileEntity(TileEntityBlockMiner.class, "miner_te");
+    RecipeRegistry.toggleVisibility(miner_block, enableMiner);
+    BlockMinerSmart block_miner_smart = new BlockMinerSmart();
+    BlockRegistry.registerBlock(block_miner_smart, "block_miner_smart", GuideCategory.BLOCKMACHINE);
+    GameRegistry.registerTileEntity(TileEntityControlledMiner.class, Const.MODID + "miner_smart_te");
+    RecipeRegistry.toggleVisibility(block_miner_smart, enableMinerSmart);
+    BlockPlacer placer_block = new BlockPlacer();
+    BlockRegistry.registerBlock(placer_block, "placer_block", GuideCategory.BLOCKMACHINE);
+    GameRegistry.registerTileEntity(TileEntityPlacer.class, "placer_block_te");
+    RecipeRegistry.toggleVisibility(block_miner_smart, enablePlacer);
+    BlockPassword password_block = new BlockPassword();
+    BlockRegistry.registerBlock(password_block, "password_block", GuideCategory.BLOCKMACHINE);
+    GameRegistry.registerTileEntity(TileEntityPassword.class, "password_block_te");
+    ModCyclic.instance.events.register(password_block);
+    RecipeRegistry.toggleVisibility(password_block, enablePassword);
+    BlockUser block_user = new BlockUser();
+    BlockRegistry.registerBlock(block_user, "block_user", GuideCategory.BLOCKMACHINE);
+    GameRegistry.registerTileEntity(TileEntityUser.class, Const.MODID + "block_user_te");
+    RecipeRegistry.toggleVisibility(block_user, enableUser);
   }
   @Override
   public void syncConfig(Configuration config) {

@@ -160,11 +160,23 @@ public class RecipeRegistry {
    */
   public static List<Item> hiddenItems = new ArrayList<Item>();
   public static List<Block> hiddenBlocks = new ArrayList<Block>();
-  public static void queueForRemoval(Block s) {
+  private static void queueForRemoval(Block s) {
     hiddenBlocks.add(s);
   }
-  public static void queueForRemoval(Item s) {
+  private static void queueForRemoval(Item s) {
     hiddenItems.add(s);
+  }
+  public static void toggleVisibility(Block s, boolean visible) {
+    if (!visible)
+      queueForRemoval(s);
+    else if (hiddenBlocks.contains(s))
+      hiddenBlocks.remove(s);
+  }
+  public static void toggleVisibility(Item s, boolean visible) {
+    if (!visible)
+      queueForRemoval(s);
+    else if (hiddenItems.contains(s))
+      hiddenItems.remove(s);
   }
   public static void processRemovals() {
     for (Block b : hiddenBlocks)
@@ -184,11 +196,8 @@ public class RecipeRegistry {
         }
       }
   }
-  
-  
-  public static List<IRecipe> getRecipesFor(ItemStack s){
-    List<IRecipe> recs =new ArrayList<IRecipe>();
-    
+  public static List<IRecipe> getRecipesFor(ItemStack s) {
+    List<IRecipe> recs = new ArrayList<IRecipe>();
     for (IRecipe recipe : CraftingManager.REGISTRY) {
       //ItemStack hideMeStack = new ItemStack(b);
       if (ItemStack.areItemsEqual(s, recipe.getRecipeOutput())) {
@@ -196,11 +205,8 @@ public class RecipeRegistry {
         recs.add(recipe);
       }
     }
-    
-    
     return recs;
   }
-  
   //https://github.com/modmuss50/RecipeManipulator/blob/master/src/main/java/me/modmuss50/rm/RecipeManipulator.java
   //  @SubscribeEvent
   //  public static void onRegistryEvent(RegistryEvent.Register<IRecipe> event) {

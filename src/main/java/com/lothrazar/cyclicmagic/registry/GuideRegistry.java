@@ -88,7 +88,7 @@ public class GuideRegistry {
       }
     }
     GuideItem itempage = new GuideItem(cat, icon, title, text);
-    itempage.findRecipes = true;//ok why does this existLOL(recipes != null);
+ 
     items.add(itempage);
     return itempage;
   }
@@ -124,7 +124,6 @@ public class GuideRegistry {
     public Item recipeItem;
     public Block recipeBlock;
     public String title;
-    public boolean findRecipes = false;
     public List<GuidePage> pages = new ArrayList<GuidePage>();
     public GuideItem(@Nonnull GuideCategory cat, @Nonnull ItemStack icon, @Nonnull String title, @Nonnull String text) {
       this.cat = cat;

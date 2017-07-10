@@ -93,6 +93,7 @@ public class CyclicGuideBook implements IGuideBook {
     List<GuideItem> items = GuideRegistry.getItems();
     for (GuideItem item : items) {
       List<IPage> pages = new ArrayList<IPage>();
+      //first add all text and brewing pages
       for (GuidePage p : item.pages) {
         if (p.text != null) {
           for (IPage textPage : PageHelper.pagesForLongText(p.text, MAX_PAGE_LENGTH)) {
@@ -103,24 +104,24 @@ public class CyclicGuideBook implements IGuideBook {
           pages.add(new PageBrewingRecipe(p.brewRecipe));
         }
       }
-      if (item.findRecipes) {
-        //but first
-        if (item.recipeBlock != null) {
-          List<IRecipe> recs = RecipeRegistry.getRecipesFor(new ItemStack(item.recipeBlock));//super test
-          ModCyclic.logger.info(item.iconStack.getItem() + " REC EH" + item.iconStack.getUnlocalizedName() + " " + recs.size());
-          for (IRecipe r : recs) {
-            pages.add(new PageIRecipe(r));
-          }
+      //lookup whatever recipes are in the block recipes 
+      List<IRecipe> recs = new ArrayList<IRecipe>();
+      if (item.recipeBlock != null) {
+        recs.addAll(RecipeRegistry.getRecipesFor(new ItemStack(item.recipeBlock)));
+
+        if(item.iconStack == null||item.iconStack.isEmpty()){        //workaround
+          item.iconStack =  new ItemStack(item.recipeBlock);
         }
-        if (item.recipeItem != null) {
-          List<IRecipe> recs = RecipeRegistry.getRecipesFor(new ItemStack(item.recipeItem));//super test
-          ModCyclic.logger.info(item.iconStack.getItem() + " REC EH" + item.iconStack.getUnlocalizedName() + " " + recs.size());
-          for (IRecipe r : recs) {
-            pages.add(new PageIRecipe(r));
-          }
+      }
+      if (item.recipeItem != null) {
+        recs.addAll(RecipeRegistry.getRecipesFor(new ItemStack(item.recipeItem)));
+        if(item.iconStack == null||item.iconStack.isEmpty()){        //workaround
+          item.iconStack =  new ItemStack(item.recipeBlock);
         }
-        //p.recipe  =    CraftingManager.REGISTRY.g
-        //pages.add(new PageIRecipe(p.recipe));
+      }
+      ModCyclic.logger.info(item.iconStack.getItem() + " REC EH" + item.iconStack.getUnlocalizedName() + " " + recs.size());
+      for (IRecipe r : recs) {
+        pages.add(new PageIRecipe(r));
       }
       addEntry(item.cat, pages, item.title, item.iconStack);
     }
