@@ -108,14 +108,9 @@ public class BlockPassword extends BlockBaseHasTile implements IHasRecipe {
         UtilChat.addChatMessage(event.getPlayer(), wasFound + " " + UtilChat.lang(this.getUnlocalizedName() + ".triggeredmany") + " : " + event.getMessage());
     }
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "sss",
-        "trt",
-        "sss",
-        's', new ItemStack(Blocks.STONE_SLAB, 1, BlockStoneSlab.EnumType.STONE.getMetadata()),
-        't', Blocks.TRIPWIRE_HOOK,
-        'r', Items.COMPARATOR);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

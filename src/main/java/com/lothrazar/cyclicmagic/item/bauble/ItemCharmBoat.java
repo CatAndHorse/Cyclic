@@ -1,6 +1,7 @@
 package com.lothrazar.cyclicmagic.item.bauble;
 import com.lothrazar.cyclicmagic.IHasRecipe;
 import com.lothrazar.cyclicmagic.item.base.BaseCharm;
+import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.player.EntityPlayer;
@@ -39,8 +40,9 @@ public class ItemCharmBoat extends BaseCharm implements IHasRecipe {
       }
     }
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return super.addRecipeAndRepair(Items.ARMOR_STAND);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

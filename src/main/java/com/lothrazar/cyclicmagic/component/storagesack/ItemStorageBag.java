@@ -164,12 +164,9 @@ public class ItemStorageBag extends BaseItem implements IHasRecipe {
     if (wand != null && wand.getItem() instanceof ItemStorageBag) { return wand; }
     return null;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), "lsl", "ldl", "lrl",
-        'l', "leather",
-        's', "string",
-        'r', "dustRedstone",
-        'd', "ingotGold");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

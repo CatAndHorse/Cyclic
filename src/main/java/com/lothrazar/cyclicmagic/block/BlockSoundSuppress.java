@@ -113,13 +113,10 @@ public class BlockSoundSuppress extends BlockBase implements IHasRecipe {
       return sound.getAttenuationType();
     }
   }
+
+ 
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this, 8),
-        " s ",
-        "sos",
-        " s ",
-        's', "dyeOrange",
-        'o', Blocks.BONE_BLOCK);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

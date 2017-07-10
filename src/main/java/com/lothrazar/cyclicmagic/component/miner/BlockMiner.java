@@ -30,17 +30,9 @@ public class BlockMiner extends BlockBaseFacingOmni implements IHasRecipe {
     ((TileEntityBlockMiner) worldIn.getTileEntity(pos)).breakBlock(worldIn, pos, state);
     super.breakBlock(worldIn, pos, state);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "rsr",
-        " g ",
-        "ooo",
-        'o', Blocks.MOSSY_COBBLESTONE,
-        'g', Items.IRON_PICKAXE, // new ItemStack(Items.DIAMOND_PICKAXE,1,OreDictionary.WILDCARD_VALUE),
-        's', Blocks.DISPENSER,
-        'r', "bone"
-    //            'b', Items.BLAZE_POWDER
-    );
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

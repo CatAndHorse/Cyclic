@@ -53,14 +53,9 @@ public class ItemSoulstone extends BaseItem implements IHasRecipe {
       }
     }
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " a ", "bsc", " d ",
-        's', "netherStar",
-        'a', Items.GOLDEN_APPLE,
-        'b', Items.POISONOUS_POTATO,
-        'c', Blocks.PURPUR_BLOCK,
-        'd', "gemEmerald");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

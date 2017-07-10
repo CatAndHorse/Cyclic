@@ -43,15 +43,10 @@ public class BlockUncrafting extends BlockBaseFacingInventory implements IHasRec
   public TileEntity createTileEntity(World worldIn, IBlockState state) {
     return new TileEntityUncrafter();
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " d ",
-        "fdf",
-        "ooo",
-        'o', "obsidian",
-        'f', Blocks.FURNACE,
-        'd', "blockDiamond");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
   @Override
   public void syncConfig(Configuration config) {
@@ -89,4 +84,5 @@ public class BlockUncrafting extends BlockBaseFacingInventory implements IHasRec
     //    blacklist = config.getStringList("BlacklistIfIngredient", category, deflist, "If something contains one of these items as output, uncrafting will be blocked.  For example, if you put 'minecraft:iron_ingot' here, you will not be able to uncraft pistons or iron swords or anything that uses iron at all.");
     //    UtilUncraft.setBlacklist(blacklist, BlacklistType.CONTAINS);
   }
+  
 }

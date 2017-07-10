@@ -37,15 +37,9 @@ public class ItemTorchThrower extends BaseTool implements IHasRecipe {
     super.onUse(stack, player, world, hand);
     return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " gi",
-        " ig",
-        "o  ",
-        'i', Items.IRON_INGOT,
-        'g', Items.GOLD_INGOT,
-        'o', Blocks.OBSIDIAN);
-    return null;
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

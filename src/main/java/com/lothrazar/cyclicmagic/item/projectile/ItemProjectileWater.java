@@ -15,13 +15,10 @@ public class ItemProjectileWater extends BaseItemProjectile implements IHasRecip
   public EntityThrowableDispensable getThrownEntity(World world, double x, double y, double z) {
     return new EntityWaterBolt(world, x, y, z);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapelessRecipe(new ItemStack(this, 8),
-        new ItemStack(Items.WATER_BUCKET),
-        Blocks.ICE,
-        "paper",
-        "string");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   void onItemThrow(ItemStack held, World world, EntityPlayer player, EnumHand hand) {

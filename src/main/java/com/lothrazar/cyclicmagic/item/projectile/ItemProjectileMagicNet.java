@@ -22,16 +22,10 @@ public class ItemProjectileMagicNet extends BaseItemProjectile implements IHasRe
   public EntityThrowableDispensable getThrownEntity(World world, double x, double y, double z) {
     return new EntityTorchBolt(world, x, y, z);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this, 1),
-        "lal",
-        "qiq",
-        "lal",
-        'i', "ingotIron",
-        'a', new ItemStack(Blocks.TALLGRASS, 1, OreDictionary.WILDCARD_VALUE),
-        'l', "dyeCyan",
-        'q', new ItemStack(Items.SNOWBALL));
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   public boolean hasEntity(ItemStack held) {
     return held.getTagCompound() != null && held.getTagCompound().hasKey(NBT_ENTITYID);

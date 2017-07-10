@@ -46,9 +46,7 @@ public abstract class BaseCharm extends BaseItem implements IHasClickToggle, bau
   public void damageCharm(EntityPlayer living, ItemStack stack) {
     UtilItemStack.damageItem(living, stack);
   }
-  public IRecipe addRecipeAndRepair(Item craftItem) {
-    return this.addRecipeAndRepair(new ItemStack(craftItem));
-  }
+ 
   /**
    * Called each tick as long the item is on a player inventory. Uses by maps to
    * check if is on a player hand and update it's contents.
@@ -59,17 +57,7 @@ public abstract class BaseCharm extends BaseItem implements IHasClickToggle, bau
       onTick(stack, (EntityPlayer) entityIn);
     }
   }
-  public IRecipe addRecipeAndRepair(ItemStack craftItem) {
-    RecipeRegistry.addShapelessRecipe(new ItemStack(this), new ItemStack(this, 1, OreDictionary.WILDCARD_VALUE), craftItem);
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "r x",
-        "id ",
-        "iir",
-        'x', craftItem,
-        'd', "gemDiamond",
-        'r', "cropNetherWart",
-        'i', "ingotIron");
-  }
+  
   /**
    * Fires while in inventory OR while in bauble slot
    * 

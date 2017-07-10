@@ -226,12 +226,9 @@ public class ItemPaperCarbon extends BaseItem implements IHasRecipe {
     }
     return s;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapelessRecipe(new ItemStack(this), new ItemStack(this));
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this, 8), "ppp", "pcp", "ppp",
-        'c', new ItemStack(Items.COAL, 1, 1), // charcoal
-        'p', "paper");
-    //also let you clean off the paper , make one with no NBT
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

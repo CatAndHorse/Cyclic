@@ -211,15 +211,9 @@ public class ItemCyclicWand extends Item implements IHasRecipe, IHasConfig {
     category = Const.ConfigCategory.modpackMisc;
     BaseSpellRange.maxRange = config.getInt("Build Scepter Max Range", category, 64, 8, 128, "Cyclic Scepter: Maximum range for all spells");
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "sds",
-        " o ",
-        "gog",
-        'd', "gemDiamond",
-        'g', "gemQuartz",
-        'o', "obsidian",
-        's', Blocks.BONE_BLOCK);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

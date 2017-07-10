@@ -69,15 +69,16 @@ public class BlockScaffolding extends BlockBase implements IHasRecipe {
   public int tickRate(World worldIn) {
     return 200;
   }
-  @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this, 16), "s s", " s ", "s s", 's', "stickWood");
-  }
+ 
   @Override
   public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
     if (!(entityIn instanceof EntityLivingBase)) { return; }
     EntityLivingBase entity = (EntityLivingBase) entityIn;
     if (!entityIn.isCollidedHorizontally) { return; }
     UtilEntity.tryMakeEntityClimb(worldIn, entity, CLIMB_SPEED);
+  }
+  @Override
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

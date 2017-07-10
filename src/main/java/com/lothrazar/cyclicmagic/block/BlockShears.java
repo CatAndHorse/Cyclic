@@ -28,14 +28,10 @@ public class BlockShears extends BlockBase implements IHasRecipe {
     this.setResistance(5.0F);
     this.setTranslucent();
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " s ",
-        "sos",
-        " s ",
-        's', new ItemStack(Items.SHEARS, 1, OreDictionary.WILDCARD_VALUE),
-        'o', "obsidian");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
   @Override
   public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
@@ -52,4 +48,5 @@ public class BlockShears extends BlockBase implements IHasRecipe {
   public AxisAlignedBB getBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
     return AABB;
   }
+  
 }

@@ -43,12 +43,10 @@ public class ItemChorusCorrupted extends ItemFood implements IHasRecipe, IHasCon
   public void addInformation(ItemStack stack, World playerIn, List<String> tooltips, net.minecraft.client.util.ITooltipFlag advanced) {
     tooltips.add(UtilChat.lang(this.getUnlocalizedName() + ".tooltip"));
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this, 3),
-        "lal", "lal", "lal",
-        'l', Items.FERMENTED_SPIDER_EYE,
-        'a', Items.CHORUS_FRUIT);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public void syncConfig(Configuration config) {

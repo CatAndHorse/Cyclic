@@ -105,35 +105,10 @@ public class ItemPowerArmor extends ItemArmor implements IHasRecipe, IHasClickTo
     list.add(UtilChat.lang("item.cantoggle.tooltip.info") + UtilChat.lang("item.cantoggle.tooltip." + onoff));
     super.addInformation(held, player, list, par4);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    switch (this.armorType) {
-      case CHEST:
-        return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-            "p p", "oio", "ooo",
-            'i', new ItemStack(Items.CHAINMAIL_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE),
-            'o', "obsidian",
-            'p', "dyePurple");
-      case FEET:
-        return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-            "   ", "p p", "oio",
-            'i', new ItemStack(Items.CHAINMAIL_BOOTS, 1, OreDictionary.WILDCARD_VALUE),
-            'o', "obsidian",
-            'p', "dyePurple");
-      case HEAD:
-        return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-            "oio", "p p", "   ",
-            'i', new ItemStack(Items.CHAINMAIL_HELMET, 1, OreDictionary.WILDCARD_VALUE),
-            'o', "obsidian",
-            'p', "dyePurple");
-      case LEGS:
-        return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-            "oio", "p p", "o o",
-            'i', new ItemStack(Items.CHAINMAIL_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE),
-            'o', "obsidian",
-            'p', "dyePurple");
-    }
-    return null;
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   public void toggle(EntityPlayer player, ItemStack held) {
     NBTTagCompound tags = UtilNBT.getItemStackNBT(held);

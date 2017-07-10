@@ -38,11 +38,11 @@ public class ItemRegistry {
       ConfigRegistry.register((IHasConfig) item);
     }
     IRecipe recipe = null;
-    if (item instanceof IHasRecipe) {
-      recipe = ((IHasRecipe) item).addRecipe();
-    }
+//    if (item instanceof IHasRecipe) {
+//      recipe = ((IHasRecipe) item).addRecipe();
+//    }
     if (cat != null) {
-      GuideRegistry.register(cat, item, recipe, null);
+      GuideRegistry.register(cat, item,  null);
     }
   }
   public static void register(Item item, String key) {

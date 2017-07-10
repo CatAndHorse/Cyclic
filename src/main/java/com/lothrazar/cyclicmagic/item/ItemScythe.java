@@ -66,35 +66,7 @@ public class ItemScythe extends BaseTool implements IHasRecipe {
     return super.onItemUse(player, worldObj, offset, hand, side, hitX, hitY, hitZ);
   }
   @Override
-  public IRecipe addRecipe() {
-    switch (harvestType) {
-      case CROPS:
-        return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-            " gs",
-            " bg",
-            "b  ",
-            'b', Items.BLAZE_ROD,
-            'g', "gemQuartz",
-            's', Items.STONE_HOE);
-      case LEAVES:
-        return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-            " gs",
-            " bg",
-            "b  ",
-            'b', Items.STICK,
-            'g', "string",
-            's', Items.STONE_AXE);
-      case WEEDS:
-        return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-            " gs",
-            " bg",
-            "b  ",
-            'b', Items.STICK,
-            'g', "string",
-            's', Items.STONE_HOE);
-      default:
-      break;
-    }
-    return null;
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

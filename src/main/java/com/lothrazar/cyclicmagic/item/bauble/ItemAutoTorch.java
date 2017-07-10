@@ -35,15 +35,10 @@ public class ItemAutoTorch extends BaseCharm implements IHasRecipe, IHasConfig {
       }
     }
   }
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapelessRecipe(new ItemStack(this), new ItemStack(this, 1, OreDictionary.WILDCARD_VALUE), "blockCoal", "blockCoal", "blockCoal");
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "cic",
-        " i ",
-        "cic",
-        'c', "blockCoal",
-        'i', Blocks.IRON_BARS);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public void syncConfig(Configuration config) {

@@ -16,16 +16,10 @@ public class ItemGloveClimb extends BaseCharm implements IHasRecipe {
   public ItemGloveClimb() {
     super(6000);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this, 1),
-        "ssl",
-        "skl",
-        "lli",
-        's', "slimeball",
-        'i', "ingotIron",
-        'k', "dyeBlack",
-        'l', "leather");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public void onTick(ItemStack stack, EntityPlayer player) {

@@ -55,9 +55,10 @@ public class ItemHeartContainer extends ItemFood implements IHasRecipe, IHasConf
     prop.setMaxHealth(newVal);
     UtilSound.playSound(player, SoundRegistry.fill);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapelessRecipe(new ItemStack(this), Items.BEETROOT, Items.RABBIT, Items.PUMPKIN_PIE, "gemDiamond", Items.CAKE, "blockEmerald", new ItemStack(Items.FISH, 1, ItemFishFood.FishType.SALMON.getMetadata()), Items.GOLDEN_APPLE, Items.POISONOUS_POTATO);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @SubscribeEvent
   public void onPlayerWarp(PlayerChangedDimensionEvent event) {

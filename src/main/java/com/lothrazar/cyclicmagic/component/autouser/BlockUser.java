@@ -39,12 +39,9 @@ public class BlockUser extends BlockBaseFacingInventory implements IHasRecipe, I
     // Bind our TESR to our tile entity
     ClientRegistry.bindTileEntitySpecialRenderer(TileEntityUser.class, new MachineTESR(this.getUnlocalizedName()));
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), "rsr", " b ", "ooo",
-        'o', "obsidian",
-        's', Blocks.DISPENSER,
-        'r', "ingotGold",
-        'b', Blocks.MAGMA);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

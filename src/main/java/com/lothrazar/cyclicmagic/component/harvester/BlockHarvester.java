@@ -32,14 +32,10 @@ public class BlockHarvester extends BlockBaseFacingInventory implements IHasReci
   public TileEntity createTileEntity(World worldIn, IBlockState state) {
     return new TileEntityHarvester();
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), "rsr", "gbg", "ooo",
-        'o', "obsidian",
-        'g', "gemQuartz",
-        's', Blocks.DISPENSER,
-        'r', "gemEmerald",
-        'b', "gemDiamond");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
   @SideOnly(Side.CLIENT)
   public void initModel() {

@@ -14,9 +14,10 @@ public class BlockScaffoldingResponsive extends BlockScaffolding implements IHas
     super(false);
     this.dropBlock = false;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapelessRecipe(new ItemStack(this, 64), "dirt", "stickWood");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
   @Override
   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {

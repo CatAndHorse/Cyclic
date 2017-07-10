@@ -22,12 +22,10 @@ public class ItemProjectileWool extends BaseItemProjectile implements IHasRecipe
   public void syncConfig(Configuration config) {
     EntityShearingBolt.doesShearChild = config.getBoolean("Ender Shears Child", Const.ConfigCategory.items, true, "Ender shears work on child sheep");
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapelessRecipe(new ItemStack(this, 32),
-        new ItemStack(Blocks.MOSSY_COBBLESTONE),
-        new ItemStack(Blocks.WOOL),
-        new ItemStack(Items.SHEARS));
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   void onItemThrow(ItemStack held, World world, EntityPlayer player, EnumHand hand) {

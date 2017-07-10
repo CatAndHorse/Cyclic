@@ -3,6 +3,7 @@ import com.lothrazar.cyclicmagic.IHasRecipe;
 import com.lothrazar.cyclicmagic.ModCyclic;
 import com.lothrazar.cyclicmagic.item.base.BaseCharm;
 import com.lothrazar.cyclicmagic.net.PacketPlayerFalldamage;
+import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -40,8 +41,9 @@ public class ItemCharmAir extends BaseCharm implements IHasRecipe {
       }
     }
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return super.addRecipeAndRepair(Items.GLASS_BOTTLE);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

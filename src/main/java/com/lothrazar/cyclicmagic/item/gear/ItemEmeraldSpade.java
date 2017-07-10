@@ -10,10 +10,9 @@ public class ItemEmeraldSpade extends ItemSpade implements IHasRecipe {
   public ItemEmeraldSpade() {
     super(MaterialRegistry.emeraldToolMaterial);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), " e ", " s ", " s ",
-        'e', "gemEmerald",
-        's', "stickWood");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

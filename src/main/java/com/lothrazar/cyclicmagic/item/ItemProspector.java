@@ -99,15 +99,10 @@ public class ItemProspector extends BaseTool implements IHasRecipe, IHasConfig {
     boolean yesShowIt = (this.isBlacklist) ? (!isInList) : isInList;
     return yesShowIt;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " sg",
-        " bs",
-        "b  ",
-        'b', new ItemStack(Items.BLAZE_ROD),
-        's', "gemDiamond",
-        'g', "blockGlassLightBlue");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public void syncConfig(Configuration config) {

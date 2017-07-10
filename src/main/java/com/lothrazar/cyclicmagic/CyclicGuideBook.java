@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.lothrazar.cyclicmagic.data.Const;
+import com.lothrazar.cyclicmagic.registry.BlockRegistry;
 import com.lothrazar.cyclicmagic.registry.GuideRegistry;
 import com.lothrazar.cyclicmagic.registry.GuideRegistry.GuideCategory;
 import com.lothrazar.cyclicmagic.registry.GuideRegistry.GuideItem;
 import com.lothrazar.cyclicmagic.registry.GuideRegistry.GuidePage;
+import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
 import com.lothrazar.cyclicmagic.util.UtilChat;
 import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.GuideBook;
@@ -22,7 +24,10 @@ import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.PageBrewingRecipe;
 import amerifrance.guideapi.page.PageIRecipe;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Optional;
 
@@ -94,20 +99,25 @@ public class CyclicGuideBook implements IGuideBook {
             pages.add(textPage);
           }
         }
-        if (p.recipe != null) {
-          pages.add(new PageIRecipe(p.recipe));
-        }
         if (p.brewRecipe != null) {
           pages.add(new PageBrewingRecipe(p.brewRecipe));
         }
+      }
+      if (item.findRecipes) { 
+        List<IRecipe> recs = RecipeRegistry.getRecipesFor(item.icon);//super test
+//        System.out.println("REC EH" +item.icon.getUnlocalizedName() + " "+ recs.size());
+//        System.out.println("REC EH" +item.icon.getItem());
+        for (IRecipe r : recs) {
+          pages.add(new PageIRecipe(r));
+        }
+        //p.recipe  =    CraftingManager.REGISTRY.g
+        //pages.add(new PageIRecipe(p.recipe));
       }
       addEntry(item.cat, pages, item.title, item.icon);
     }
   }
   @Override
   public Book buildBook() {
-    buildPages();
-    buildCategories();
     buildBookItem();
     return book;
   }
@@ -137,7 +147,7 @@ public class CyclicGuideBook implements IGuideBook {
     book.setWelcomeMessage(UtilChat.lang("guide.welcome"));
     book.setAuthor("Lothrazar");
     book.setColor(Color.MAGENTA);
-    book.setCategoryList(categories);
+  //  book.setCategoryList(categories);
     book.setRegistryName(new ResourceLocation(Const.MODID, "guide"));
     book.setSpawnWithBook(true);
   }
@@ -146,5 +156,9 @@ public class CyclicGuideBook implements IGuideBook {
     GuideAPI.setModel(book);
   }
   @Override
-  public void handlePost(ItemStack bookStack) {}
+  public void handlePost(ItemStack bookStack) {
+    buildPages();
+    buildCategories();
+    book.setCategoryList(categories);
+    }
 }

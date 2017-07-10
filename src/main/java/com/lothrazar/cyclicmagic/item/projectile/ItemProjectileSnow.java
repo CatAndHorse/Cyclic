@@ -15,12 +15,10 @@ public class ItemProjectileSnow extends BaseItemProjectile implements IHasRecipe
   public EntityThrowableDispensable getThrownEntity(World world, double x, double y, double z) {
     return new EntitySnowballBolt(world, x, y, z);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapelessRecipe(new ItemStack(this, 32),
-        new ItemStack(Blocks.MOSSY_COBBLESTONE),
-        new ItemStack(Blocks.ICE),
-        new ItemStack(Items.SNOWBALL));
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   void onItemThrow(ItemStack held, World world, EntityPlayer player, EnumHand hand) {

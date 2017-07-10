@@ -44,17 +44,10 @@ public class BlockPatternBuilder extends BlockBaseHasTile implements IHasRecipe,
     }
     super.breakBlock(worldIn, pos, state);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "rbr",
-        "did",
-        "rmr",
-        'b', Blocks.STONE_BUTTON,
-        'd', "blockDiamond",
-        'i', Blocks.ICE,
-        'm', Blocks.MAGMA,
-        'r', "blockRedstone");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
   @SideOnly(Side.CLIENT)
   @Override

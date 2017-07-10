@@ -39,17 +39,9 @@ public class BlockDisenchanter extends BlockBaseFacingInventory implements IHasR
     ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
     ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDisenchanter.class, new DisenchantPylonTESR());
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "vhv",
-        "grg",
-        "sis",
-        'v', Items.EXPERIENCE_BOTTLE,
-        'h', Blocks.HOPPER,
-        'i', "gemDiamond",
-        'g', "blockGlassPurple",
-        'r', Items.FIRE_CHARGE,
-        's', "ingotBrickNether");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

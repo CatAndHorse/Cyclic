@@ -13,14 +13,10 @@ public class ItemStoneMinecart extends BaseItemMinecart implements IHasRecipe {
   public ItemStoneMinecart() {
     super();
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "   ",
-        "gmg",
-        "ggg",
-        'g', "cobblestone",
-        'm', Items.MINECART);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public EntityMinecart summonMinecart(World world) {

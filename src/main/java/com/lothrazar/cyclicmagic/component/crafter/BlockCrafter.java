@@ -20,16 +20,9 @@ public class BlockCrafter extends BlockBaseFacingInventory implements IHasRecipe
   public TileEntity createTileEntity(World worldIn, IBlockState state) {
     return new TileEntityCrafter();
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "pcp",
-        "y x",
-        "pkp",
-        'k', new ItemStack(Blocks.BONE_BLOCK),
-        'x', new ItemStack(Blocks.OBSERVER),
-        'y', new ItemStack(Blocks.PISTON),
-        'c', "workbench",
-        'p', "dyePurple");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

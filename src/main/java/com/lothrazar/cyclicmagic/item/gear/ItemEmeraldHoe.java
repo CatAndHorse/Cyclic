@@ -10,9 +10,9 @@ public class ItemEmeraldHoe extends ItemHoe implements IHasRecipe {
   public ItemEmeraldHoe() {
     super(MaterialRegistry.emeraldToolMaterial);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapedRecipe(new ItemStack(this), "ee ", " s ", " s ", 'e', "gemEmerald", 's', "stickWood");
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), " ee", " s ", " s ", 'e', "gemEmerald", 's', "stickWood");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

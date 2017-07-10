@@ -62,15 +62,10 @@ public class ItemCaveFinder extends BaseTool implements IHasRecipe, IHasConfig {
     super.onUse(stack, player, worldObj, hand);
     return super.onItemUse(player, worldObj, posIn, hand, side, hitX, hitY, hitZ);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " sg",
-        " bs",
-        "b  ",
-        'b', "stickWood",
-        's', new ItemStack(Items.FLINT),
-        'g', "dyeBlue");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public void syncConfig(Configuration config) {

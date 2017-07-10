@@ -10,8 +10,9 @@ public class ItemSandstoneSpade extends ItemSpade implements IHasRecipe {
   public ItemSandstoneSpade() {
     super(MaterialRegistry.sandstoneToolMaterial);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), " e ", " s ", " s ", 'e', "sandstone", 's', "stickWood");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

@@ -13,14 +13,10 @@ public class ItemGoldFurnaceMinecart extends BaseItemMinecart implements IHasRec
   public ItemGoldFurnaceMinecart() {
     super();
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "   ",
-        "gmg",
-        "ggg",
-        'g', "ingotGold",
-        'm', Items.FURNACE_MINECART);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public EntityMinecart summonMinecart(World world) {

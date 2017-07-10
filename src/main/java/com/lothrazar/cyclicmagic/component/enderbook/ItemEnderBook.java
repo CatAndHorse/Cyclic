@@ -119,13 +119,10 @@ public class ItemEnderBook extends BaseItem implements IHasRecipe, IHasConfig {
     UtilSound.playSound(player, dest, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT);
     return true;
   }
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapelessRecipe(new ItemStack(this), new ItemStack(this));
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), "ene", "ebe", "eee",
-        'e', "enderpearl",
-        'b', Items.BOOK,
-        'n', "blockEmerald");
-    // if you want to clean out the book and start over
+
+  @Override
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
   @Override
   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer entityPlayer, EnumHand hand) {

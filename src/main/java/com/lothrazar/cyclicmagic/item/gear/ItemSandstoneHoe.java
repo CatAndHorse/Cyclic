@@ -10,9 +10,9 @@ public class ItemSandstoneHoe extends ItemHoe implements IHasRecipe {
   public ItemSandstoneHoe() {
     super(MaterialRegistry.sandstoneToolMaterial);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapedRecipe(new ItemStack(this), "ee ", " s ", " s ", 'e', "sandstone", 's', "stickWood");
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), " ee", " s ", " s ", 'e', "sandstone", 's', "stickWood");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

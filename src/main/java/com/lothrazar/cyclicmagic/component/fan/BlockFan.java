@@ -33,14 +33,9 @@ public class BlockFan extends BlockBaseFacingInventory implements IHasRecipe {
   public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
     return side == EnumFacing.DOWN;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " i ",
-        "iri",
-        "sis",
-        'i', "ingotIron",
-        'r', Items.REPEATER,
-        's', "stone");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

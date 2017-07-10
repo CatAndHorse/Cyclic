@@ -1,6 +1,7 @@
 package com.lothrazar.cyclicmagic.item.bauble;
 import com.lothrazar.cyclicmagic.IHasRecipe;
 import com.lothrazar.cyclicmagic.item.base.BaseCharm;
+import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -24,8 +25,9 @@ public class ItemCharmAntidote extends BaseCharm implements IHasRecipe {
       super.damageCharm(living, stack);
     }
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return super.addRecipeAndRepair(Items.FERMENTED_SPIDER_EYE);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

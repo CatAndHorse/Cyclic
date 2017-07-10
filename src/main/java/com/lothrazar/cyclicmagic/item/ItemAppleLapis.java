@@ -13,12 +13,10 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemAppleLapis extends BaseItem implements IHasRecipe {
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapelessRecipe(new ItemStack(this),
-        Items.APPLE,
-        "blockLapis");
-    return null;
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @SubscribeEvent
   public void onEntityInteractEvent(EntityInteract event) {

@@ -1,6 +1,7 @@
 package com.lothrazar.cyclicmagic.item.bauble;
 import com.lothrazar.cyclicmagic.IHasRecipe;
 import com.lothrazar.cyclicmagic.item.base.BaseCharm;
+import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
 import com.lothrazar.cyclicmagic.util.UtilEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -21,8 +22,9 @@ public class ItemCharmSpeed extends BaseCharm implements IHasRecipe {
       super.damageCharm(player, stack);
     }
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return super.addRecipeAndRepair(new ItemStack(Blocks.EMERALD_BLOCK));
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

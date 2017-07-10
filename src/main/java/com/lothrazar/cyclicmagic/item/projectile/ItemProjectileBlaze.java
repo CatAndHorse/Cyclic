@@ -15,10 +15,10 @@ public class ItemProjectileBlaze extends BaseItemProjectile implements IHasRecip
   public EntityThrowableDispensable getThrownEntity(World world, double x, double y, double z) {
     return new EntityBlazeBolt(world, x, y, z);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapelessRecipe(new ItemStack(this, 16), new ItemStack(Items.FIRE_CHARGE), new ItemStack(Items.BLAZE_POWDER), new ItemStack(Items.FLINT));
-    return null;
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   void onItemThrow(ItemStack held, World world, EntityPlayer player, EnumHand hand) {

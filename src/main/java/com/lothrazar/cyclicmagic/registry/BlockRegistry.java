@@ -37,11 +37,11 @@ public class BlockRegistry {
     if (b instanceof IHasConfig) {
       ConfigRegistry.register((IHasConfig) b);
     }
-    if (b instanceof IHasRecipe) {
-      recipe = ((IHasRecipe) b).addRecipe();
-    }
+//    if (b instanceof IHasRecipe) {
+//      recipe = ((IHasRecipe) b).addRecipe();
+//    }
     if (cat != null) {
-      GuideRegistry.register(cat, b, recipe, null);
+      GuideRegistry.register(cat, b,  null);
     }
     if (!(b instanceof BlockCropMagicBean)) { //TODO FIX dirty hack to skip sprout
       JeiDescriptionRegistry.registerWithJeiDescription(b);
@@ -49,6 +49,7 @@ public class BlockRegistry {
   }
   @SubscribeEvent
   public static void onRegistryEvent(RegistryEvent.Register<Block> event) {
+ 
     //    event.getRegistry().registerAll(blocks.toArray(new Block[0]));
     for (Block b : blocks) {
       event.getRegistry().register(b);

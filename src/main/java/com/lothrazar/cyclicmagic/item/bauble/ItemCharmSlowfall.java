@@ -3,6 +3,7 @@ import com.lothrazar.cyclicmagic.IHasRecipe;
 import com.lothrazar.cyclicmagic.data.Const;
 import com.lothrazar.cyclicmagic.item.base.BaseCharm;
 import com.lothrazar.cyclicmagic.registry.PotionEffectRegistry;
+import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
 import com.lothrazar.cyclicmagic.util.UtilParticle;
 import com.lothrazar.cyclicmagic.util.UtilSound;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,8 +38,9 @@ public class ItemCharmSlowfall extends BaseCharm implements IHasRecipe {
       }
     }
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return super.addRecipeAndRepair(Items.RABBIT_FOOT);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

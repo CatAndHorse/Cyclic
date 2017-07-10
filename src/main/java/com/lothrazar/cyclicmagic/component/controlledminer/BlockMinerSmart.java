@@ -40,17 +40,9 @@ public class BlockMinerSmart extends BlockBaseFacingInventory implements IHasRec
     // Bind our TESR to our tile entity
     ClientRegistry.bindTileEntitySpecialRenderer(TileEntityControlledMiner.class, new MachineTESR(this.getUnlocalizedName(), 4));
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "rsr",
-        "gbx",
-        "ooo",
-        'o', "obsidian",
-        'g', Items.DIAMOND_PICKAXE,
-        'x', Items.DIAMOND_AXE,
-        's', Blocks.DISPENSER,
-        'r', "blockLapis",
-        'b', Blocks.MAGMA);// MAGMA BLOCK is field_189877_df in 1.10.2 apparently
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

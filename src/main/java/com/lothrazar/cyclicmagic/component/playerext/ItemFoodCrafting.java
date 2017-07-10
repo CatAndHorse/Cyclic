@@ -40,10 +40,10 @@ public class ItemFoodCrafting extends ItemFood implements IHasRecipe {
       UtilChat.addChatMessage(player, "unlocks.crafting");
     }
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapelessRecipe(new ItemStack(this),
-        "workbench", Items.PUMPKIN_PIE, Items.CAKE, Items.COOKIE, new ItemStack(Items.FISH, 1, ItemFishFood.FishType.SALMON.getMetadata()), Items.POISONOUS_POTATO, "gemDiamond", "gemEmerald", "gemQuartz");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
   @Override
   @SideOnly(Side.CLIENT)

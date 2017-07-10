@@ -45,22 +45,10 @@ public class ItemChestSackEmpty extends BaseItem implements IHasRecipe {
     }
     return EnumActionResult.SUCCESS;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " s ",
-        "lbl",
-        "lll",
-        'l', "leather",
-        'b', "slimeball",
-        's', "string");
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " s ",
-        "lbl",
-        "lll",
-        'l', "leather",
-        'b', new ItemStack(Items.APPLE),
-        's', "string");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   private Item fullSack;
   public void setFullSack(Item item) {

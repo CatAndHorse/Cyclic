@@ -82,16 +82,9 @@ public class ItemFangs extends BaseTool implements IHasRecipe {
     UtilSound.playSound(caster, SoundEvents.EVOCATION_ILLAGER_PREPARE_ATTACK);
     caster.getCooldownTracker().setCooldown(this, COOLDOWN);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "wpc",
-        " dp",
-        "r w",
-        'w', Blocks.WEB,
-        'r', Blocks.END_ROD,
-        'c', Items.END_CRYSTAL,
-        'p', Blocks.PACKED_ICE,
-        'd', "blockEmerald");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

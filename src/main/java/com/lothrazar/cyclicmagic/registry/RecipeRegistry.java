@@ -183,6 +183,23 @@ public class RecipeRegistry {
         }
       }
   }
+  
+  
+  public static List<IRecipe> getRecipesFor(ItemStack s){
+    List<IRecipe> recs =new ArrayList<IRecipe>();
+    
+    for (IRecipe recipe : CraftingManager.REGISTRY) {
+      //ItemStack hideMeStack = new ItemStack(b);
+      if (ItemStack.areItemsEqual(s, recipe.getRecipeOutput())) {
+        //System.out.println("REMOVE RECIPE " + recipe.getRecipeOutput().getItem().getUnlocalizedName());
+        recs.add(recipe);
+      }
+    }
+    
+    
+    return recs;
+  }
+  
   //https://github.com/modmuss50/RecipeManipulator/blob/master/src/main/java/me/modmuss50/rm/RecipeManipulator.java
   //  @SubscribeEvent
   //  public static void onRegistryEvent(RegistryEvent.Register<IRecipe> event) {

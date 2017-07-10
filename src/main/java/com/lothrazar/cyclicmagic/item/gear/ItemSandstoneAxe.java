@@ -11,9 +11,9 @@ public class ItemSandstoneAxe extends ItemAxe implements IHasRecipe {
     // protected ItemAxe(Item.ToolMaterial material, int damage, int speed)
     super(MaterialRegistry.sandstoneToolMaterial, 6, -3.2F);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapedRecipe(new ItemStack(this), "ee ", "es ", " s ", 'e', "sandstone", 's', "stickWood");
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), " ee", " se", " s ", 'e', "sandstone", 's', "stickWood");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

@@ -143,15 +143,9 @@ public class ItemPlayerLauncher extends BaseTool implements IHasRecipe {
   public EnumAction getItemUseAction(ItemStack stack) {
     return EnumAction.BOW;//make it use cooldown
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "rsq",
-        " rs",
-        "t r",
-        't', "string",
-        'r', "dustGlowstone",
-        's', "slimeball",
-        'q', "gemQuartz");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

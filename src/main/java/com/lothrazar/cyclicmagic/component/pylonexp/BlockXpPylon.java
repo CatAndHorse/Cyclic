@@ -46,17 +46,9 @@ public class BlockXpPylon extends BlockBaseFacingInventory implements IHasRecipe
   public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
     return side == EnumFacing.DOWN;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "vhv",
-        "grg",
-        "sis",
-        'v', "vine",
-        'h', Blocks.HOPPER,
-        'i', "ingotGold",
-        'g', "dyeLime",
-        'r', Items.FIRE_CHARGE,
-        's', "ingotBrickNether");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

@@ -21,14 +21,10 @@ public class BlockWorkbench extends BlockBaseHasTile implements IHasRecipe, IHas
   public TileEntity createTileEntity(World worldIn, IBlockState state) {
     return new TileEntityWorkbench();
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " t ",
-        "s s",
-        "   ",
-        't', "workbench",
-        's', "cobblestone");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
   @Override
   public String getOre() {

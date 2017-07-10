@@ -116,15 +116,9 @@ public class ItemRandomizer extends BaseTool implements IHasRecipe {
     ActionType.tickTimeout(stack);
     super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " gi",
-        " ig",
-        "o  ",
-        'i', "ingotIron",
-        'g', "dustRedstone",
-        'o', "obsidian");
-    return null;
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

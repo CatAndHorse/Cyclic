@@ -49,15 +49,10 @@ public class BlockMagnetAnti extends BlockBaseHasTile implements IHasRecipe {
   public boolean canSpawnInBlock() {
     return true;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this, 1),
-        "sbs",
-        "bxb",
-        "sbs",
-        's', "gemDiamond",
-        'b', new ItemStack(Blocks.NETHER_WART_BLOCK), //netherwart block
-        'x', new ItemStack(Blocks.BEACON));
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
   @Override
   @SideOnly(Side.CLIENT)

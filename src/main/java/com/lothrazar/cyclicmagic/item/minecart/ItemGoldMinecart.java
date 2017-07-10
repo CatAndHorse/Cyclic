@@ -13,14 +13,10 @@ public class ItemGoldMinecart extends BaseItemMinecart implements IHasRecipe {
   public ItemGoldMinecart() {
     super();
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "   ",
-        "gmg",
-        "ggg",
-        'g', "ingotGold",
-        'm', Items.MINECART);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public EntityMinecart summonMinecart(World world) {

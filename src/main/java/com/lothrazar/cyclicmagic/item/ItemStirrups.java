@@ -22,14 +22,9 @@ public class ItemStirrups extends BaseTool implements IHasRecipe {
     super.onUse(stack, player, world, hand);
     return true;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " ls",
-        " sl",
-        "ii ",
-        'l', Items.LEAD,
-        'i', "ingotIron",
-        's', "leather");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

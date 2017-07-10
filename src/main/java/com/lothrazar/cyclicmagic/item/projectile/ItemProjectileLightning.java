@@ -14,12 +14,10 @@ public class ItemProjectileLightning extends BaseItemProjectile implements IHasR
   public EntityThrowableDispensable getThrownEntity(World world, double x, double y, double z) {
     return new EntityLightningballBolt(world, x, y, z);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapelessRecipe(new ItemStack(this, 4),
-        "enderpearl",
-        "gemQuartz",
-        new ItemStack(Items.GHAST_TEAR));
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   void onItemThrow(ItemStack held, World world, EntityPlayer player, EnumHand hand) {

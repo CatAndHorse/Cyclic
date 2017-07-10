@@ -24,16 +24,9 @@ public class BlockPlacer extends BlockBaseFacingOmni implements IHasRecipe {
   public TileEntity createTileEntity(World worldIn, IBlockState state) {
     return new TileEntityPlacer();
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "rsr",
-        "gbg",
-        "ooo",
-        'o', "cobblestone",
-        'g', "ingotIron",
-        's', Blocks.DISPENSER,
-        'r', "stone",
-        'b', "dustRedstone");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

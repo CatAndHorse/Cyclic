@@ -60,15 +60,9 @@ public class ItemFireExtinguish extends BaseTool implements IHasRecipe {
     }
     return success;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "mwm",
-        "rwr",
-        " i ",
-        'w', new ItemStack(Items.WATER_BUCKET),
-        'm', new ItemStack(Blocks.MAGMA), //magma'm', new ItemStack(Blocks.MAGMA), 
-        'r', "dyeRed",
-        'i', "ingotIron");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

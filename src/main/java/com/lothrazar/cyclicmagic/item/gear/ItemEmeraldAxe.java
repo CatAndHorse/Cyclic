@@ -11,9 +11,9 @@ public class ItemEmeraldAxe extends ItemAxe implements IHasRecipe {
     // protected ItemAxe(Item.ToolMaterial material, int damage, int speed)
     super(MaterialRegistry.emeraldToolMaterial, 8, -3);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapedRecipe(new ItemStack(this), "ee ", "es ", " s ", 'e', "gemEmerald", 's', "stickWood");
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), " ee", " se", " s ", 'e', "gemEmerald", 's', "stickWood");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

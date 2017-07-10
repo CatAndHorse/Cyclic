@@ -65,15 +65,9 @@ public class ItemWaterToIce extends BaseTool implements IHasRecipe {
     }
     return success;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "wdw",
-        "iwi",
-        " o ",
-        'w', new ItemStack(Items.WATER_BUCKET),
-        'd', "ingotBrickNether",
-        'o', "obsidian",
-        'i', new ItemStack(Blocks.ICE));
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

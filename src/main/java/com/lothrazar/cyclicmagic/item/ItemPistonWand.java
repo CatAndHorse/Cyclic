@@ -122,14 +122,9 @@ public class ItemPistonWand extends BaseTool implements IHasRecipe {
     ActionType.tickTimeout(stack);
     super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " gp",
-        " bg",
-        "b  ",
-        'b', Items.BLAZE_ROD,
-        'g', "gemQuartz",
-        'p', Blocks.STICKY_PISTON);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

@@ -89,30 +89,8 @@ public class ItemEnderWing extends BaseTool implements IHasRecipe, IHasClickTogg
     }
   }
   @Override
-  public IRecipe addRecipe() {
-    switch (warpType) {
-      case BED:
-        //goes to your BED (which can be anywhere)
-        return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-            " ft",
-            "ggf",
-            "dg ",
-            't', new ItemStack(Items.GHAST_TEAR),
-            'f', "feather",
-            'g', "ingotGold",
-            'd', new ItemStack(Items.ENDER_EYE));
-      case SPAWN:
-        //this one needs diamond but is cheaper. goes to worldspawn
-        return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-            " ff",
-            "ggf",
-            "dg ",
-            'f', "feather",
-            'g', "nuggetGold",
-            'd', "gemDiamond");
-      default:
-        return null;
-    }
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public boolean isOn(ItemStack held) {

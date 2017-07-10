@@ -24,11 +24,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemAppleEmerald extends BaseItem implements IHasRecipe {
   private static final int CONVTIME = 1200;
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapelessRecipe(new ItemStack(this),
-        "gemEmerald",
-        Items.GOLDEN_APPLE);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   @SideOnly(Side.CLIENT)

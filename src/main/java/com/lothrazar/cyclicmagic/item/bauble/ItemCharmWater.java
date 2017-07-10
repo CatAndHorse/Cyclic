@@ -2,6 +2,7 @@ package com.lothrazar.cyclicmagic.item.bauble;
 import com.lothrazar.cyclicmagic.IHasRecipe;
 import com.lothrazar.cyclicmagic.data.Const;
 import com.lothrazar.cyclicmagic.item.base.BaseCharm;
+import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
 import com.lothrazar.cyclicmagic.util.UtilParticle;
 import com.lothrazar.cyclicmagic.util.UtilSound;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,9 +23,10 @@ public class ItemCharmWater extends BaseCharm implements IHasRecipe {
   public ItemCharmWater() {
     super(durability);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return super.addRecipeAndRepair(new ItemStack(Items.FISH, 1, ItemFishFood.FishType.SALMON.getMetadata()));
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public void onTick(ItemStack stack, EntityPlayer living) {

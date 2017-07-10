@@ -1,6 +1,7 @@
 package com.lothrazar.cyclicmagic.item.bauble;
 import com.lothrazar.cyclicmagic.IHasRecipe;
 import com.lothrazar.cyclicmagic.item.base.BaseCharm;
+import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
 import com.lothrazar.cyclicmagic.util.UtilEntity;
 import com.lothrazar.cyclicmagic.util.UtilParticle;
 import com.lothrazar.cyclicmagic.util.UtilSound;
@@ -20,9 +21,10 @@ public class ItemCharmVoid extends BaseCharm implements IHasRecipe {
   public ItemCharmVoid() {
     super(durability);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return super.addRecipeAndRepair(Items.ENDER_EYE);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public void onTick(ItemStack stack, EntityPlayer living) {

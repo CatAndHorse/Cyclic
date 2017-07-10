@@ -36,15 +36,9 @@ public class ItemRotateBlock extends BaseTool implements IHasRecipe {
     onUse(stack, player, worldObj, hand);
     return EnumActionResult.SUCCESS;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " gp",
-        " bg",
-        "b  ",
-        'b', "stickWood",
-        'g', Blocks.STONE_SLAB,
-        'p', Blocks.STONE_BRICK_STAIRS);
-    return null;
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

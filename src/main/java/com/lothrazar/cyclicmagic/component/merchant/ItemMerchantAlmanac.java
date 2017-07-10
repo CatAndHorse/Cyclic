@@ -29,15 +29,9 @@ public class ItemMerchantAlmanac extends BaseItem implements IHasRecipe {
     }
     return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(hand));
   }
+
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapedRecipe(new ItemStack(this), " e ", " b ", " q ",
-        'e', "gemEmerald",
-        'b', Items.BOOK,
-        'q', Blocks.BROWN_MUSHROOM);
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), " e ", " b ", " q ",
-        'e', "gemEmerald",
-        'b', Items.BOOK,
-        'q', Blocks.RED_MUSHROOM);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

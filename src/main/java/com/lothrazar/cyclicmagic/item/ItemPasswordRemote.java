@@ -110,11 +110,9 @@ public class ItemPasswordRemote extends BaseItem implements IHasRecipe {
     //    worldIn.scheduleBlockUpdate(blockPos, stateNew.getBlock(), 3, 3);
     //    worldIn.scheduleUpdate(blockPos, stateNew.getBlock(), 3);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapelessRecipe(new ItemStack(this),
-        new ItemStack(Blocks.STONE_SLAB, 1, BlockStoneSlab.EnumType.STONE.getMetadata()),
-        Blocks.STONE_BUTTON,
-        Blocks.LEVER);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

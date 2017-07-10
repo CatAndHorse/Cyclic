@@ -39,15 +39,9 @@ public class BlockDetector extends BlockBaseHasTile implements IHasRecipe {
   public TileEntity createTileEntity(World worldIn, IBlockState state) {
     return new TileEntityDetector();
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "dcd",
-        " q ",
-        "r r",
-        'r', "dustRedstone",
-        'q', "gemQuartz",
-        'c', "blockCoal",
-        'd', "gemDiamond");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

@@ -24,13 +24,9 @@ public class ItemEnderBag extends BaseItem implements IHasRecipe {
       UtilSound.playSound(player, SoundEvents.BLOCK_ENDERCHEST_CLOSE);
     return super.onItemRightClick(world, player, hand);///return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " l ",
-        "lsl",
-        " l ",
-        'l', "leather",
-        's', "chestEnder");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

@@ -14,14 +14,10 @@ public class ItemDropperMinecart extends BaseItemMinecart implements IHasRecipe 
   public ItemDropperMinecart() {
     super();
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " d ",
-        " m ",
-        "   ",
-        'm', Items.MINECART,
-        'd', Blocks.DROPPER);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public EntityMinecart summonMinecart(World world) {

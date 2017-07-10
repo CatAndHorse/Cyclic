@@ -14,16 +14,10 @@ public class ItemTurretMinecart extends BaseItemMinecart implements IHasRecipe {
   public ItemTurretMinecart() {
     super();
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "bdb",
-        "gmg",
-        "ggg",
-        'd', Blocks.BONE_BLOCK,
-        'b', Items.BOW,
-        'g', "ingotGold",
-        'm', Blocks.OBSERVER);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   public EntityMinecart summonMinecart(World world) {

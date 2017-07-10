@@ -158,25 +158,10 @@ public class ItemBuildSwapper extends BaseTool implements IHasRecipe {
   public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     ActionType.tickTimeout(stack);
     super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
-  }
+  } 
   @Override
-  public IRecipe addRecipe() {
-    String ingredient = null;
-    switch (this.getWandType()) {
-      case MATCH:
-        ingredient = "gemEmerald";
-      break;
-      case NORMAL:
-        ingredient = "blockLapis";
-      break;
-    }
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " gi",
-        "oig",
-        "oo ",
-        'i', "blockIron",
-        'g', ingredient,
-        'o', "obsidian");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   public WandType getWandType() {
     return wandType;

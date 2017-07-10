@@ -137,18 +137,7 @@ public class ItemMattock extends ItemTool implements IHasRecipe {
     super.addInformation(held, player, list, par4);
   }
   @Override
-  public IRecipe addRecipe() {
-    RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "ede", "oso", " s ",
-        'e', "blockQuartz",
-        'o', "obsidian",
-        'd', "blockDiamond",
-        's', "bone");
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        "ede", "oso", " s ",
-        'e', "gemEmerald",
-        'o', "obsidian",
-        'd', "gemDiamond",
-        's', "bone");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

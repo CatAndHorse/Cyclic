@@ -35,18 +35,10 @@ public class ItemMagicBean extends ItemSeeds implements IHasRecipe {
       return EnumActionResult.FAIL;
     }
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this, 2),
-        "waw",
-        "bEc",
-        "wdw",
-        'w', Items.WHEAT_SEEDS,
-        'E', "gemEmerald",
-        'a', Items.BEETROOT_SEEDS,
-        'b', Items.MELON_SEEDS,
-        'c', Items.PUMPKIN_SEEDS,
-        'd', Items.NETHER_WART);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   @SideOnly(Side.CLIENT)

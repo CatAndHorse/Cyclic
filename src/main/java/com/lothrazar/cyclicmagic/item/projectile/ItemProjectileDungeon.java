@@ -30,12 +30,10 @@ public class ItemProjectileDungeon extends BaseItemProjectile implements IHasRec
   public void syncConfig(Configuration config) {
     DUNGEONRADIUS = config.getInt("Ender Dungeon Radius", Const.ConfigCategory.items, 128, 8, 128, "Search radius of dungeonfinder");
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapelessRecipe(new ItemStack(this, 8),
-        "enderpearl",
-        new ItemStack(Blocks.MOSSY_COBBLESTONE),
-        "cropNetherWart");// Blocks.iron_bars
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   @Override
   void onItemThrow(ItemStack held, World world, EntityPlayer player, EnumHand hand) {

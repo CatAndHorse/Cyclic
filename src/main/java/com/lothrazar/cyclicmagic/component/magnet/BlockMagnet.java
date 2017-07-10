@@ -56,15 +56,10 @@ public class BlockMagnet extends BlockBaseHasTile implements IHasRecipe, IHasCon
   public boolean canSpawnInBlock() {
     return true;
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this, 4),
-        "sbs",
-        "bxb",
-        "sbs",
-        's', "ingotIron",
-        'b', new ItemStack(Items.COAL),
-        'x', "dyePurple");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
   @Override
   public void syncConfig(Configuration config) {

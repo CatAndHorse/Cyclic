@@ -10,10 +10,9 @@ public class ItemEmeraldPickaxe extends ItemPickaxe implements IHasRecipe {
   public ItemEmeraldPickaxe() {
     super(MaterialRegistry.emeraldToolMaterial);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), "eee", " s ", " s ",
-        'e', "gemEmerald",
-        's', "stickWood");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

@@ -40,13 +40,9 @@ public class BlockStructureBuilder extends BlockBaseFacingInventory implements I
   public TileEntity createTileEntity(World worldIn, IBlockState state) {
     return new TileEntityStructureBuilder();//"tile.builder_block.name"
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), "rsr", "gbg", "ooo",
-        'o', "obsidian",
-        'g', Items.GHAST_TEAR,
-        's', Blocks.DISPENSER,
-        'r', "blockRedstone",
-        'b', "blockDiamond");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenBlocks.contains(this);
   }
 }

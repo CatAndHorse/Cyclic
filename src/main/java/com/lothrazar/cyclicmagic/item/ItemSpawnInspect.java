@@ -84,15 +84,10 @@ public class ItemSpawnInspect extends BaseTool implements IHasRecipe {
     super.onUse(stack, player, worldObj, hand);
     return super.onItemUse(player, worldObj, posIn, hand, side, hitX, hitY, hitZ);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " sg",
-        " bs",
-        "b  ",
-        'b', new ItemStack(Items.BLAZE_ROD),
-        's', new ItemStack(Items.FLINT),
-        'g', "blockGlassPurple");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
   public static class SpawnDetail {
     private int itemWeight;

@@ -16,10 +16,9 @@ public class ItemSandstonePickaxe extends ItemPickaxe implements IHasRecipe {
     if (net.minecraftforge.oredict.OreDictionary.itemMatches(new ItemStack(Blocks.SANDSTONE), repair, false)) { return true; }
     return super.getIsRepairable(toRepair, repair);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this), "eee", " s ", " s ",
-        'e', "sandstone",
-        's', "stickWood");
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }

@@ -48,15 +48,9 @@ public class ItemWarpSurface extends BaseTool implements IHasRecipe {
     UtilSound.playSound(player, SoundEvents.BLOCK_FIRE_EXTINGUISH);
     return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
   }
+
   @Override
-  public IRecipe addRecipe() {
-    return RecipeRegistry.addShapedRecipe(new ItemStack(this),
-        " de",
-        " gd",
-        "s  ",
-        'e', Items.ENDER_EYE,
-        'd', "gemDiamond",
-        'g', Items.GHAST_TEAR,
-        's', Blocks.REDSTONE_LAMP);
+  public boolean isHidden() {
+    return RecipeRegistry.hiddenItems.contains(this);
   }
 }
