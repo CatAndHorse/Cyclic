@@ -1,4 +1,5 @@
 package com.lothrazar.cyclicmagic.registry;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import com.lothrazar.cyclicmagic.IHasConfig;
@@ -10,17 +11,39 @@ import com.lothrazar.cyclicmagic.block.IHasOreDict;
 import com.lothrazar.cyclicmagic.component.cyclicwand.ItemCyclicWand;
 import com.lothrazar.cyclicmagic.component.enderbook.ItemEnderBook;
 import com.lothrazar.cyclicmagic.component.merchant.ItemMerchantAlmanac;
+import com.lothrazar.cyclicmagic.component.playerext.ItemFoodCrafting;
+import com.lothrazar.cyclicmagic.component.playerext.ItemFoodInventory;
 import com.lothrazar.cyclicmagic.component.storagesack.ItemStorageBag;
 import com.lothrazar.cyclicmagic.data.Const;
+import com.lothrazar.cyclicmagic.entity.projectile.EntityBlazeBolt;
+import com.lothrazar.cyclicmagic.entity.projectile.EntityDungeonEye;
+import com.lothrazar.cyclicmagic.entity.projectile.EntityDynamite;
+import com.lothrazar.cyclicmagic.entity.projectile.EntityDynamiteBlockSafe;
+import com.lothrazar.cyclicmagic.entity.projectile.EntityDynamiteMining;
+import com.lothrazar.cyclicmagic.entity.projectile.EntityFishingBolt;
+import com.lothrazar.cyclicmagic.entity.projectile.EntityLightningballBolt;
+import com.lothrazar.cyclicmagic.entity.projectile.EntityMagicNetEmpty;
+import com.lothrazar.cyclicmagic.entity.projectile.EntityMagicNetFull;
+import com.lothrazar.cyclicmagic.entity.projectile.EntityShearingBolt;
+import com.lothrazar.cyclicmagic.entity.projectile.EntitySnowballBolt;
+import com.lothrazar.cyclicmagic.entity.projectile.EntityTorchBolt;
+import com.lothrazar.cyclicmagic.entity.projectile.EntityWaterBolt;
+import com.lothrazar.cyclicmagic.item.ItemAppleEmerald;
+import com.lothrazar.cyclicmagic.item.ItemAppleLapis;
 import com.lothrazar.cyclicmagic.item.ItemBuildSwapper;
 import com.lothrazar.cyclicmagic.item.ItemCaveFinder;
 import com.lothrazar.cyclicmagic.item.ItemChestSack;
 import com.lothrazar.cyclicmagic.item.ItemChestSackEmpty;
+import com.lothrazar.cyclicmagic.item.ItemChorusCorrupted;
+import com.lothrazar.cyclicmagic.item.ItemChorusGlowing;
 import com.lothrazar.cyclicmagic.item.ItemEnderBag;
 import com.lothrazar.cyclicmagic.item.ItemEnderPearlReuse;
 import com.lothrazar.cyclicmagic.item.ItemEnderWing;
 import com.lothrazar.cyclicmagic.item.ItemFangs;
 import com.lothrazar.cyclicmagic.item.ItemFireExtinguish;
+import com.lothrazar.cyclicmagic.item.ItemHeartContainer;
+import com.lothrazar.cyclicmagic.item.ItemHorseUpgrade;
+import com.lothrazar.cyclicmagic.item.ItemMagicBean;
 import com.lothrazar.cyclicmagic.item.ItemPaperCarbon;
 import com.lothrazar.cyclicmagic.item.ItemPasswordRemote;
 import com.lothrazar.cyclicmagic.item.ItemPistonWand;
@@ -38,6 +61,7 @@ import com.lothrazar.cyclicmagic.item.ItemWarpSurface;
 import com.lothrazar.cyclicmagic.item.ItemWaterSpreader;
 import com.lothrazar.cyclicmagic.item.ItemWaterToIce;
 import com.lothrazar.cyclicmagic.item.ItemBuildSwapper.WandType;
+import com.lothrazar.cyclicmagic.item.ItemHorseUpgrade.HorseUpgradeType;
 import com.lothrazar.cyclicmagic.item.bauble.ItemAutoTorch;
 import com.lothrazar.cyclicmagic.item.bauble.ItemCharmAir;
 import com.lothrazar.cyclicmagic.item.bauble.ItemCharmAntidote;
@@ -48,12 +72,29 @@ import com.lothrazar.cyclicmagic.item.bauble.ItemCharmSpeed;
 import com.lothrazar.cyclicmagic.item.bauble.ItemCharmVoid;
 import com.lothrazar.cyclicmagic.item.bauble.ItemCharmWater;
 import com.lothrazar.cyclicmagic.item.bauble.ItemGloveClimb;
+import com.lothrazar.cyclicmagic.item.projectile.BaseItemProjectile;
+import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileBlaze;
+import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileDungeon;
+import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileFishing;
+import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileLightning;
+import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileMagicNet;
+import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileSnow;
+import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileTNT;
+import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileTorch;
+import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileWater;
+import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileWool;
+import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileTNT.ExplosionType;
 import com.lothrazar.cyclicmagic.registry.GuideRegistry.GuideCategory;
+import com.lothrazar.cyclicmagic.registry.GuideRegistry.GuideItem;
 import com.lothrazar.cyclicmagic.registry.LootTableRegistry.ChestType;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
@@ -112,9 +153,174 @@ public class ItemRegistry {
   public static ItemProspector tool_prospector = new ItemProspector();
   public static ItemSpawnInspect tool_spawn_inspect = new ItemSpawnInspect();
   public static ItemCaveFinder tool_spelunker = new ItemCaveFinder();
+  public static Item emerald_carrot = new ItemHorseUpgrade(HorseUpgradeType.TYPE, new ItemStack(Items.EMERALD));
+  public static Item lapis_carrot = new ItemHorseUpgrade(HorseUpgradeType.VARIANT, new ItemStack(Items.DYE, 1, EnumDyeColor.BLUE.getDyeDamage()));
+  public static Item diamond_carrot = new ItemHorseUpgrade(HorseUpgradeType.HEALTH, new ItemStack(Items.DIAMOND));
+  public static Item redstone_carrot = new ItemHorseUpgrade(HorseUpgradeType.SPEED, new ItemStack(Items.REDSTONE));
+  public static Item ender_carrot = new ItemHorseUpgrade(HorseUpgradeType.JUMP, new ItemStack(Items.ENDER_EYE));
+  public static ItemAppleEmerald apple_emerald = new ItemAppleEmerald();
+  public static ItemChorusGlowing glowing_chorus = new ItemChorusGlowing();
+  public static ItemChorusCorrupted corrupted_chorus = new ItemChorusCorrupted();
+  public static ItemFoodInventory inventory_food = new ItemFoodInventory();
+  public static ItemFoodCrafting crafting_food = new ItemFoodCrafting();
+  public static ItemHeartContainer heart_food = new ItemHeartContainer();
+  public static ItemAppleLapis apple_lapis = new ItemAppleLapis();
+  
+
+  public static   ItemProjectileLightning ender_lightning = new ItemProjectileLightning();
+  public static   ItemProjectileSnow ender_snow = new ItemProjectileSnow();
+  public static   ItemProjectileWater ender_water = new ItemProjectileWater();
+  public static   ItemProjectileBlaze ender_blaze = new ItemProjectileBlaze();
+  public static   ItemProjectileDungeon ender_dungeon = new ItemProjectileDungeon();
+  public static   ItemProjectileFishing ender_fishing = new ItemProjectileFishing();
+  public static   ItemProjectileWool ender_wool = new ItemProjectileWool();
+  public static   ItemProjectileTorch ender_torch = new ItemProjectileTorch();
+  public static   ItemProjectileTNT dynamite_safe = new ItemProjectileTNT(6, ExplosionType.BLOCKSAFE);
+  public static   ItemProjectileMagicNet magic_net = new ItemProjectileMagicNet();
+  public static   ItemProjectileTNT dynamite_mining = new ItemProjectileTNT(6, ExplosionType.MINING);
+  public static   ItemProjectileTNT ender_tnt_1 = new ItemProjectileTNT(1, ExplosionType.NORMAL);
+  public static   ItemProjectileTNT ender_tnt_2 = new ItemProjectileTNT(2, ExplosionType.NORMAL);
+  public static   ItemProjectileTNT ender_tnt_3 = new ItemProjectileTNT(3, ExplosionType.NORMAL);
+  public static   ItemProjectileTNT ender_tnt_4 = new ItemProjectileTNT(4, ExplosionType.NORMAL);
+  public static   ItemProjectileTNT ender_tnt_5 = new ItemProjectileTNT(5, ExplosionType.NORMAL);
+  public static   ItemProjectileTNT ender_tnt_6 = new ItemProjectileTNT(6, ExplosionType.NORMAL);
+
+  public static   ItemMagicBean sprout_seed ;
+
+  public static ArrayList<BaseItemProjectile> projectiles = new ArrayList<BaseItemProjectile>();
   
   public static void init() {
+    
+    
+    
+    
+    
 
+    ItemRegistry.register(ender_blaze, "ender_blaze", GuideCategory.ITEMTHROW);
+    EntityProjectileRegistry.registerModEntity(EntityBlazeBolt.class, "blazebolt", 1008);
+    EntityBlazeBolt.renderSnowball = ender_blaze;
+    projectiles.add(ender_blaze);
+
+    ItemRegistry.register(ender_dungeon, "ender_dungeon", GuideCategory.ITEMTHROW);
+    EntityProjectileRegistry.registerModEntity(EntityDungeonEye.class, "dungeonbolt", 1006);
+    EntityDungeonEye.renderSnowball = ender_dungeon;
+    LootTableRegistry.registerLoot(ender_dungeon);
+  //  ItemRegistry.registerWithJeiDescription(ender_dungeon);
+    projectiles.add(ender_dungeon);
+ 
+    ItemRegistry.register(ender_fishing, "ender_fishing", GuideCategory.ITEMTHROW);
+    EntityProjectileRegistry.registerModEntity(EntityFishingBolt.class, "fishingbolt", 1004);
+    EntityFishingBolt.renderSnowball = ender_fishing;
+   // ItemRegistry.registerWithJeiDescription(ender_fishing);
+    projectiles.add(ender_fishing);
+
+    ItemRegistry.register(ender_wool, "ender_wool", GuideCategory.ITEMTHROW);
+    EntityProjectileRegistry.registerModEntity(EntityShearingBolt.class, "woolbolt", 1003);
+    EntityShearingBolt.renderSnowball = ender_wool;
+ //   ItemRegistry.registerWithJeiDescription(ender_wool);
+    projectiles.add(ender_wool);
+  
+    ItemRegistry.register(ender_torch, "ender_torch", GuideCategory.ITEMTHROW);
+    EntityProjectileRegistry.registerModEntity(EntityTorchBolt.class, "torchbolt", 1002);
+    EntityTorchBolt.renderSnowball = ender_torch;
+   // ItemRegistry.registerWithJeiDescription(ender_torch);
+    projectiles.add(ender_torch);
+
+    ItemRegistry.register(ender_water, "ender_water", GuideCategory.ITEMTHROW);
+    EntityProjectileRegistry.registerModEntity(EntityWaterBolt.class, "waterbolt", 1000);
+    EntityWaterBolt.renderSnowball = ender_water;
+   // ItemRegistry.registerWithJeiDescription(ender_water);
+    projectiles.add(ender_water);
+
+    ItemRegistry.register(ender_snow, "ender_snow", GuideCategory.ITEMTHROW);
+    EntityProjectileRegistry.registerModEntity(EntitySnowballBolt.class, "frostbolt", 1001);
+    EntitySnowballBolt.renderSnowball = ender_snow;
+//     ItemRegistry.registerWithJeiDescription(ender_snow);
+    projectiles.add(ender_snow);
+ 
+    ItemRegistry.register(ender_lightning, "ender_lightning", GuideCategory.ITEMTHROW);
+    EntityProjectileRegistry.registerModEntity(EntityLightningballBolt.class, "lightningbolt", 999);
+    EntityLightningballBolt.renderSnowball = ender_lightning;
+    LootTableRegistry.registerLoot(ender_lightning);
+//    ItemRegistry.registerWithJeiDescription(ender_lightning);
+    projectiles.add(ender_lightning);
+
+    ItemRegistry.register(dynamite_safe, "dynamite_safe", GuideCategory.ITEMTHROW);
+    GuideItem page = GuideRegistry.register(GuideCategory.ITEMTHROW, dynamite_safe);
+    EntityProjectileRegistry.registerModEntity(EntityDynamiteBlockSafe.class, "tntblocksafebolt", 1009);
+    EntityDynamiteBlockSafe.renderSnowball = dynamite_safe;
+    projectiles.add(dynamite_safe);
+
+
+    ItemRegistry.register(magic_net, "magic_net", GuideCategory.ITEMTHROW);
+    EntityMagicNetEmpty.renderSnowball = magic_net;
+    EntityMagicNetFull.renderSnowball = magic_net;
+    EntityProjectileRegistry.registerModEntity(EntityMagicNetFull.class, "magicnetfull", 1011);
+    EntityProjectileRegistry.registerModEntity(EntityMagicNetEmpty.class, "magicnetempty", 1012);
+    projectiles.add(magic_net);
+
+    ItemRegistry.register(dynamite_mining, "dynamite_mining", GuideCategory.ITEMTHROW);
+      GuideRegistry.register(GuideCategory.ITEMTHROW, dynamite_mining);
+    EntityProjectileRegistry.registerModEntity(EntityDynamiteMining.class, "tntminingbolt", 1010);
+    EntityDynamiteMining.renderSnowball = dynamite_mining;
+    projectiles.add(dynamite_mining); 
+
+     GuideRegistry.register(GuideCategory.ITEMTHROW, ender_tnt_1);
+    EntityProjectileRegistry.registerModEntity(EntityDynamite.class, "tntbolt", 1007);
+    EntityDynamite.renderSnowball = ender_tnt_1;
+    projectiles.add(ender_tnt_1);
+    projectiles.add(ender_tnt_2);
+    projectiles.add(ender_tnt_3);
+    projectiles.add(ender_tnt_4);
+    projectiles.add(ender_tnt_5);
+    projectiles.add(ender_tnt_6);
+//    page.findRecipes=true;
+    //first the basic recipes
+//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_1, 12), new ItemStack(Blocks.TNT), "paper", new ItemStack(Items.CLAY_BALL), "enderpearl"));
+//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_1), new ItemStack(ender_tnt_1), new ItemStack(Items.CLAY_BALL)));
+//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_2), new ItemStack(Items.CLAY_BALL)));
+//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_3), new ItemStack(Items.CLAY_BALL)));
+//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_5), new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_4), new ItemStack(Items.CLAY_BALL)));
+//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_6), new ItemStack(ender_tnt_5), new ItemStack(ender_tnt_5), new ItemStack(Items.CLAY_BALL)));
+//    //default recipes are added already insice the IRecipe
+//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_1), new ItemStack(ender_tnt_1), new ItemStack(ender_tnt_1), new ItemStack(ender_tnt_1), new ItemStack(Items.CLAY_BALL)));
+//    //two 3s is four 2s
+//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_2), new ItemStack(Items.CLAY_BALL)));
+//    //four 3s is two 4s is one 5
+//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_5), new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_3), new ItemStack(Items.CLAY_BALL)));
+//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_6), new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_4), new ItemStack(Items.CLAY_BALL)));
+// 
+    
+    
+    LootTableRegistry.registerLoot(ender_tnt_6);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ItemRegistry.register(ender_tnt_1, "ender_tnt_1", null);
+    ItemRegistry.register(ender_tnt_2, "ender_tnt_2", null);
+    ItemRegistry.register(ender_tnt_3, "ender_tnt_3", null);
+    ItemRegistry.register(ender_tnt_4, "ender_tnt_4", null);
+    ItemRegistry.register(ender_tnt_5, "ender_tnt_5", null);
+    ItemRegistry.register(ender_tnt_6, "ender_tnt_6", null);
+    
+    
+    
+    
+    ItemRegistry.register(emerald_carrot, "horse_upgrade_type");
+    ItemRegistry.register(lapis_carrot, "horse_upgrade_variant");
+    ItemRegistry.register(diamond_carrot, "horse_upgrade_health");
+    ItemRegistry.register(redstone_carrot, "horse_upgrade_speed");
+    ItemRegistry.register(ender_carrot, "horse_upgrade_jump");
     ItemRegistry.register(charm_air, "charm_air", GuideCategory.ITEMBAUBLES);
     ItemRegistry.register(charm_fire, "charm_fire", GuideCategory.ITEMBAUBLES);
     ItemRegistry.register(charm_boat, "charm_boat", GuideCategory.ITEMBAUBLES);
@@ -130,7 +336,6 @@ public class ItemRegistry {
     ItemRegistry.register(ItemRegistry.tool_trade, "tool_trade");
     ItemRegistry.register(ItemRegistry.password_remote, "password_remote");
     ItemRegistry.register(ItemRegistry.tool_elevate, "tool_elevate", GuideCategory.TRANSPORT);
- 
     ItemRegistry.register(ItemRegistry.glove_climb, "glove_climb", GuideCategory.ITEMBAUBLES);
     ItemRegistry.register(ItemRegistry.tool_rotate, "tool_rotate");
     ItemRegistry.register(ItemRegistry.water_spreader, "water_spreader");
@@ -149,7 +354,13 @@ public class ItemRegistry {
     ItemRegistry.register(ItemRegistry.tool_randomize, "tool_randomize");
     ItemRegistry.register(ItemRegistry.tool_swap_match, "tool_swap_match");
     ItemRegistry.register(ItemRegistry.tool_prospector, "tool_prospector");
-   
+    ItemRegistry.register(apple_emerald, "apple_emerald");
+    ItemRegistry.register(apple_lapis, "apple_lapis");
+    ItemRegistry.register(heart_food, "heart_food");
+    ItemRegistry.register(crafting_food, "crafting_food");
+    ItemRegistry.register(inventory_food, "inventory_food");
+    ItemRegistry.register(glowing_chorus, "glowing_chorus");
+    ItemRegistry.register(corrupted_chorus, "corrupted_chorus");
     ItemRegistry.register(ItemRegistry.tool_spelunker, "tool_spelunker");
     ItemRegistry.register(ItemRegistry.tool_spawn_inspect, "tool_spawn_inspect");
     ItemRegistry.register(ItemRegistry.ender_pearl_reuse, "ender_pearl_reuse");
@@ -175,8 +386,19 @@ public class ItemRegistry {
     ModCyclic.instance.events.register(ItemRegistry.tool_randomize);
     ModCyclic.instance.events.register(ItemRegistry.sleeping_mat);
     ModCyclic.instance.events.register(ItemRegistry.tool_push);
-    
-    
+    ModCyclic.instance.events.register(apple_lapis);
+    ModCyclic.instance.events.register(apple_emerald);
+    ModCyclic.instance.events.register(heart_food);
+    ModCyclic.instance.events.register(corrupted_chorus);
+    ModCyclic.instance.events.register(glowing_chorus);
+    LootTableRegistry.registerLoot(heart_food, ChestType.ENDCITY);
+    LootTableRegistry.registerLoot(heart_food, ChestType.IGLOO);
+    LootTableRegistry.registerLoot(heart_food);
+    LootTableRegistry.registerLoot(apple_emerald);
+    LootTableRegistry.registerLoot(crafting_food);
+    LootTableRegistry.registerLoot(inventory_food);
+    LootTableRegistry.registerLoot(corrupted_chorus);
+    LootTableRegistry.registerLoot(corrupted_chorus, ChestType.ENDCITY);
     LootTableRegistry.registerLoot(ItemRegistry.tool_prospector);
     LootTableRegistry.registerLoot(ItemRegistry.ender_pearl_reuse);
     LootTableRegistry.registerLoot(ItemRegistry.ender_pearl_mounted);

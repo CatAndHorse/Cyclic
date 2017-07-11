@@ -3,9 +3,9 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 import com.lothrazar.cyclicmagic.IHasRecipe;
 import com.lothrazar.cyclicmagic.ModCyclic;
+import com.lothrazar.cyclicmagic.event.EventRenderWorld;
 import com.lothrazar.cyclicmagic.item.base.BaseTool;
 import com.lothrazar.cyclicmagic.module.ItemToolsModule;
-import com.lothrazar.cyclicmagic.module.ItemToolsModule.RenderLoc;
 import com.lothrazar.cyclicmagic.net.PacketSwapBlock;
 import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
 import com.lothrazar.cyclicmagic.registry.SoundRegistry;
@@ -118,8 +118,8 @@ public class ItemBuildSwapper extends BaseTool implements IHasRecipe {
       if (slot >= 0) {
         ItemStack stack = player.inventory.getStackInSlot(slot);
         int leftOff = 0, rightOff = -18, topOff = 0, bottOff = 0;
-        int xmain = RenderLoc.locToX(ItemToolsModule.renderLocation, leftOff, rightOff);
-        int ymain = RenderLoc.locToY(ItemToolsModule.renderLocation, topOff, bottOff);
+        int xmain = EventRenderWorld.RenderLoc.locToX(EventRenderWorld.renderLocation, leftOff, rightOff);
+        int ymain = EventRenderWorld.RenderLoc.locToY(EventRenderWorld.renderLocation, topOff, bottOff);
         if (!stack.isEmpty())
           ModCyclic.proxy.renderItemOnScreen(stack, xmain, ymain);
       }

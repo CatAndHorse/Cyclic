@@ -2,6 +2,9 @@ package com.lothrazar.cyclicmagic.module;
 import com.lothrazar.cyclicmagic.IHasConfig;
 import com.lothrazar.cyclicmagic.data.Const;
 import com.lothrazar.cyclicmagic.dispenser.BehaviorPlantSeed;
+import com.lothrazar.cyclicmagic.dispenser.BehaviorProjectileThrowable;
+import com.lothrazar.cyclicmagic.item.projectile.BaseItemProjectile;
+import com.lothrazar.cyclicmagic.registry.ItemRegistry;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.IPlantable;
@@ -18,6 +21,9 @@ public class DispenserBehaviorModule extends BaseModule implements IHasConfig {
           BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(item, new BehaviorPlantSeed());
         }
       }
+    }
+    for (BaseItemProjectile item : ItemRegistry.projectiles) {
+      BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(item, new BehaviorProjectileThrowable(item));
     }
   }
   @Override

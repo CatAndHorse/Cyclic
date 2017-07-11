@@ -56,8 +56,10 @@ import com.lothrazar.cyclicmagic.component.vector.TileEntityVector;
 import com.lothrazar.cyclicmagic.component.workbench.BlockWorkbench;
 import com.lothrazar.cyclicmagic.component.workbench.TileEntityWorkbench;
 import com.lothrazar.cyclicmagic.data.Const;
+import com.lothrazar.cyclicmagic.item.ItemMagicBean;
 import com.lothrazar.cyclicmagic.registry.GuideRegistry.GuideCategory;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -105,6 +107,7 @@ public class BlockRegistry {
   public static BlockPassword password_block = new BlockPassword();
   public static BlockMinerSmart block_miner_smart = new BlockMinerSmart();
   public static BlockUser block_user = new BlockUser();
+  public static BlockCropMagicBean sprout = new BlockCropMagicBean();
   public static void init() {
     initBlocks();
     initTileEntities();
@@ -114,6 +117,14 @@ public class BlockRegistry {
     GuideRegistry.register(GuideCategory.BLOCKPLATE, BlockRegistry.plate_push);
     GuideRegistry.register(GuideCategory.BLOCKPLATE, BlockRegistry.plate_launch_med);
     GuideRegistry.register(GuideCategory.BLOCK, BlockRegistry.block_storeempty, null);
+    initPlants();
+  }
+  public static void initPlants() {
+    BlockRegistry.registerBlock(sprout, "sprout", null);
+    ItemRegistry.sprout_seed = new ItemMagicBean(sprout, Blocks.FARMLAND);
+    ItemRegistry.register(ItemRegistry.sprout_seed, "sprout_seed");
+    LootTableRegistry.registerLoot(ItemRegistry.sprout_seed);
+    sprout.setSeed(ItemRegistry.sprout_seed);
   }
   private static void initTileEntities() {
     GameRegistry.registerTileEntity(TileEntityMagnet.class, "magnet_block_te");
@@ -202,15 +213,14 @@ public class BlockRegistry {
       recipeMeta = ((IHasRecipe) b);
     }
     boolean isHidden = (recipeMeta != null && recipeMeta.isHidden());
-    if (!isHidden) {
-    }
+    if (!isHidden) {}
     if (cat != null) {
       //if recipe  is hidden, dont put in guidebook also eh
       GuideRegistry.register(cat, b, null);
     }
-//    if (!(b instanceof BlockCropMagicBean)) { //TODO FIX dirty hack to skip sprout
-//      JeiDescriptionRegistry.registerWithJeiDescription(b);
-//    }
+    //    if (!(b instanceof BlockCropMagicBean)) { //TODO FIX dirty hack to skip sprout
+    //      JeiDescriptionRegistry.registerWithJeiDescription(b);
+    //    }
   }
   @SubscribeEvent
   public static void onRegistryEvent(RegistryEvent.Register<Block> event) {

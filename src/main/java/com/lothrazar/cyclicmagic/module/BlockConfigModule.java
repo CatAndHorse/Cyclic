@@ -50,6 +50,7 @@ import com.lothrazar.cyclicmagic.component.workbench.TileEntityWorkbench;
 import com.lothrazar.cyclicmagic.data.Const;
 import com.lothrazar.cyclicmagic.registry.BlockRegistry;
 import com.lothrazar.cyclicmagic.registry.GuideRegistry;
+import com.lothrazar.cyclicmagic.registry.ItemRegistry;
 import com.lothrazar.cyclicmagic.registry.GuideRegistry.GuideCategory;
 import com.lothrazar.cyclicmagic.registry.RecipeRegistry;
 import net.minecraft.init.Items;
@@ -159,5 +160,15 @@ public class BlockConfigModule extends BaseModule implements IHasConfig {
     RecipeRegistry.toggleVisibility(BlockRegistry.plate_vector, vectorPlate);
     RecipeRegistry.toggleVisibility(BlockRegistry.block_miner_smart, enablePlacer);
     RecipeRegistry.toggleVisibility(BlockRegistry.exp_pylon, expPylon);
+    
+    
+    
+    boolean enableBeans = config.getBoolean("MagicBean", Const.ConfigCategory.content, true, Const.ConfigCategory.contentDefaultText);
+    
+    RecipeRegistry.toggleVisibility(ItemRegistry.sprout_seed, enableBeans);
+    RecipeRegistry.toggleVisibility(BlockRegistry.sprout,  enableBeans);
+  
+    
+    
   }
 }
