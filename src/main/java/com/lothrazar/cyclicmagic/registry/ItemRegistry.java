@@ -2,6 +2,8 @@ package com.lothrazar.cyclicmagic.registry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import com.google.common.collect.Sets;
 import com.lothrazar.cyclicmagic.IHasConfig;
 import com.lothrazar.cyclicmagic.IHasRecipe;
 import com.lothrazar.cyclicmagic.ModCyclic;
@@ -15,6 +17,13 @@ import com.lothrazar.cyclicmagic.component.playerext.ItemFoodCrafting;
 import com.lothrazar.cyclicmagic.component.playerext.ItemFoodInventory;
 import com.lothrazar.cyclicmagic.component.storagesack.ItemStorageBag;
 import com.lothrazar.cyclicmagic.data.Const;
+import com.lothrazar.cyclicmagic.entity.EntityGoldFurnaceMinecart;
+import com.lothrazar.cyclicmagic.entity.EntityGoldMinecart;
+import com.lothrazar.cyclicmagic.entity.EntityGoldMinecartChest;
+import com.lothrazar.cyclicmagic.entity.EntityGoldMinecartDispenser;
+import com.lothrazar.cyclicmagic.entity.EntityMinecartDropper;
+import com.lothrazar.cyclicmagic.entity.EntityMinecartTurret;
+import com.lothrazar.cyclicmagic.entity.EntityStoneMinecart;
 import com.lothrazar.cyclicmagic.entity.projectile.EntityBlazeBolt;
 import com.lothrazar.cyclicmagic.entity.projectile.EntityDungeonEye;
 import com.lothrazar.cyclicmagic.entity.projectile.EntityDynamite;
@@ -44,6 +53,7 @@ import com.lothrazar.cyclicmagic.item.ItemFireExtinguish;
 import com.lothrazar.cyclicmagic.item.ItemHeartContainer;
 import com.lothrazar.cyclicmagic.item.ItemHorseUpgrade;
 import com.lothrazar.cyclicmagic.item.ItemMagicBean;
+import com.lothrazar.cyclicmagic.item.ItemMattock;
 import com.lothrazar.cyclicmagic.item.ItemPaperCarbon;
 import com.lothrazar.cyclicmagic.item.ItemPasswordRemote;
 import com.lothrazar.cyclicmagic.item.ItemPistonWand;
@@ -72,6 +82,17 @@ import com.lothrazar.cyclicmagic.item.bauble.ItemCharmSpeed;
 import com.lothrazar.cyclicmagic.item.bauble.ItemCharmVoid;
 import com.lothrazar.cyclicmagic.item.bauble.ItemCharmWater;
 import com.lothrazar.cyclicmagic.item.bauble.ItemGloveClimb;
+import com.lothrazar.cyclicmagic.item.gear.ItemEmeraldArmor;
+import com.lothrazar.cyclicmagic.item.gear.ItemEmeraldAxe;
+import com.lothrazar.cyclicmagic.item.gear.ItemEmeraldHoe;
+import com.lothrazar.cyclicmagic.item.gear.ItemEmeraldPickaxe;
+import com.lothrazar.cyclicmagic.item.gear.ItemEmeraldSpade;
+import com.lothrazar.cyclicmagic.item.gear.ItemEmeraldSword;
+import com.lothrazar.cyclicmagic.item.minecart.ItemDropperMinecart;
+import com.lothrazar.cyclicmagic.item.minecart.ItemGoldFurnaceMinecart;
+import com.lothrazar.cyclicmagic.item.minecart.ItemGoldMinecart;
+import com.lothrazar.cyclicmagic.item.minecart.ItemStoneMinecart;
+import com.lothrazar.cyclicmagic.item.minecart.ItemTurretMinecart;
 import com.lothrazar.cyclicmagic.item.projectile.BaseItemProjectile;
 import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileBlaze;
 import com.lothrazar.cyclicmagic.item.projectile.ItemProjectileDungeon;
@@ -88,9 +109,11 @@ import com.lothrazar.cyclicmagic.registry.GuideRegistry.GuideCategory;
 import com.lothrazar.cyclicmagic.registry.GuideRegistry.GuideItem;
 import com.lothrazar.cyclicmagic.registry.LootTableRegistry.ChestType;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -165,107 +188,133 @@ public class ItemRegistry {
   public static ItemFoodCrafting crafting_food = new ItemFoodCrafting();
   public static ItemHeartContainer heart_food = new ItemHeartContainer();
   public static ItemAppleLapis apple_lapis = new ItemAppleLapis();
+  public static ItemProjectileLightning ender_lightning = new ItemProjectileLightning();
+  public static ItemProjectileSnow ender_snow = new ItemProjectileSnow();
+  public static ItemProjectileWater ender_water = new ItemProjectileWater();
+  public static ItemProjectileBlaze ender_blaze = new ItemProjectileBlaze();
+  public static ItemProjectileDungeon ender_dungeon = new ItemProjectileDungeon();
+  public static ItemProjectileFishing ender_fishing = new ItemProjectileFishing();
+  public static ItemProjectileWool ender_wool = new ItemProjectileWool();
+  public static ItemProjectileTorch ender_torch = new ItemProjectileTorch();
+  public static ItemProjectileTNT dynamite_safe = new ItemProjectileTNT(6, ExplosionType.BLOCKSAFE);
+  public static ItemProjectileMagicNet magic_net = new ItemProjectileMagicNet();
+  public static ItemProjectileTNT dynamite_mining = new ItemProjectileTNT(6, ExplosionType.MINING);
+  public static ItemProjectileTNT ender_tnt_1 = new ItemProjectileTNT(1, ExplosionType.NORMAL);
+  public static ItemProjectileTNT ender_tnt_2 = new ItemProjectileTNT(2, ExplosionType.NORMAL);
+  public static ItemProjectileTNT ender_tnt_3 = new ItemProjectileTNT(3, ExplosionType.NORMAL);
+  public static ItemProjectileTNT ender_tnt_4 = new ItemProjectileTNT(4, ExplosionType.NORMAL);
+  public static ItemProjectileTNT ender_tnt_5 = new ItemProjectileTNT(5, ExplosionType.NORMAL);
+  public static ItemProjectileTNT ender_tnt_6 = new ItemProjectileTNT(6, ExplosionType.NORMAL);
+  public static   ItemGoldMinecart gold_minecart = new ItemGoldMinecart();
+  public static ItemTurretMinecart turret_minecart = new ItemTurretMinecart();
+  public static  ItemStoneMinecart stone_minecart = new ItemStoneMinecart();
+  public static  ItemDropperMinecart dropper_minecart = new ItemDropperMinecart();
+
   
-
-  public static   ItemProjectileLightning ender_lightning = new ItemProjectileLightning();
-  public static   ItemProjectileSnow ender_snow = new ItemProjectileSnow();
-  public static   ItemProjectileWater ender_water = new ItemProjectileWater();
-  public static   ItemProjectileBlaze ender_blaze = new ItemProjectileBlaze();
-  public static   ItemProjectileDungeon ender_dungeon = new ItemProjectileDungeon();
-  public static   ItemProjectileFishing ender_fishing = new ItemProjectileFishing();
-  public static   ItemProjectileWool ender_wool = new ItemProjectileWool();
-  public static   ItemProjectileTorch ender_torch = new ItemProjectileTorch();
-  public static   ItemProjectileTNT dynamite_safe = new ItemProjectileTNT(6, ExplosionType.BLOCKSAFE);
-  public static   ItemProjectileMagicNet magic_net = new ItemProjectileMagicNet();
-  public static   ItemProjectileTNT dynamite_mining = new ItemProjectileTNT(6, ExplosionType.MINING);
-  public static   ItemProjectileTNT ender_tnt_1 = new ItemProjectileTNT(1, ExplosionType.NORMAL);
-  public static   ItemProjectileTNT ender_tnt_2 = new ItemProjectileTNT(2, ExplosionType.NORMAL);
-  public static   ItemProjectileTNT ender_tnt_3 = new ItemProjectileTNT(3, ExplosionType.NORMAL);
-  public static   ItemProjectileTNT ender_tnt_4 = new ItemProjectileTNT(4, ExplosionType.NORMAL);
-  public static   ItemProjectileTNT ender_tnt_5 = new ItemProjectileTNT(5, ExplosionType.NORMAL);
-  public static   ItemProjectileTNT ender_tnt_6 = new ItemProjectileTNT(6, ExplosionType.NORMAL);
-
-  public static   ItemMagicBean sprout_seed ;
-
+  
+ 
+ 
+  
+  
+  public static ItemMagicBean sprout_seed;
   public static ArrayList<BaseItemProjectile> projectiles = new ArrayList<BaseItemProjectile>();
-  
   public static void init() {
+ 
     
     
+ 
     
     
-    
+    ItemRegistry.register(gold_minecart, "gold_minecart", GuideCategory.TRANSPORT);
+    EntityGoldMinecart.dropItem = gold_minecart;
+    EntityProjectileRegistry.registerModEntity(EntityGoldMinecart.class, "goldminecart", 1100);
+    ItemGoldFurnaceMinecart gold_furnace_minecart = new ItemGoldFurnaceMinecart();
+    ItemRegistry.register(gold_furnace_minecart, "gold_furnace_minecart", GuideCategory.TRANSPORT);
+    EntityGoldFurnaceMinecart.dropItem = gold_furnace_minecart;
+    EntityProjectileRegistry.registerModEntity(EntityGoldFurnaceMinecart.class, "goldfurnaceminecart", 1101);
 
+    ItemRegistry.register(stone_minecart, "stone_minecart", GuideCategory.TRANSPORT);
+    EntityStoneMinecart.dropItem = stone_minecart;
+    EntityProjectileRegistry.registerModEntity(EntityStoneMinecart.class, "stoneminecart", 1102);
+
+    EntityProjectileRegistry.registerModEntity(EntityGoldMinecartChest.class, "goldchestminecart", 1103);
+
+    ItemRegistry.register(dropper_minecart, "dropper_minecart", GuideCategory.TRANSPORT);
+    EntityMinecartDropper.dropItem = dropper_minecart;
+    EntityProjectileRegistry.registerModEntity(EntityMinecartDropper.class, "golddropperminecart", 1104);
+ 
+    //BROKEN:
+    //it spawns entity in the world. so like an arrow, it flies to the arget but then magically teleports back o teh  cart position
+    //stop for now
+    EntityProjectileRegistry.registerModEntity(EntityGoldMinecartDispenser.class, "golddispenserminecart", 1105);
+
+
+    ItemRegistry.register(turret_minecart, "turret_minecart", GuideCategory.TRANSPORT);
+    EntityMinecartTurret.dropItem = turret_minecart;
+    EntityProjectileRegistry.registerModEntity(EntityMinecartTurret.class, "turretminecart", 1106);
+ 
+    
+    
+    
+    
     ItemRegistry.register(ender_blaze, "ender_blaze", GuideCategory.ITEMTHROW);
     EntityProjectileRegistry.registerModEntity(EntityBlazeBolt.class, "blazebolt", 1008);
     EntityBlazeBolt.renderSnowball = ender_blaze;
     projectiles.add(ender_blaze);
-
     ItemRegistry.register(ender_dungeon, "ender_dungeon", GuideCategory.ITEMTHROW);
     EntityProjectileRegistry.registerModEntity(EntityDungeonEye.class, "dungeonbolt", 1006);
     EntityDungeonEye.renderSnowball = ender_dungeon;
     LootTableRegistry.registerLoot(ender_dungeon);
-  //  ItemRegistry.registerWithJeiDescription(ender_dungeon);
+    //  ItemRegistry.registerWithJeiDescription(ender_dungeon);
     projectiles.add(ender_dungeon);
- 
     ItemRegistry.register(ender_fishing, "ender_fishing", GuideCategory.ITEMTHROW);
     EntityProjectileRegistry.registerModEntity(EntityFishingBolt.class, "fishingbolt", 1004);
     EntityFishingBolt.renderSnowball = ender_fishing;
-   // ItemRegistry.registerWithJeiDescription(ender_fishing);
+    // ItemRegistry.registerWithJeiDescription(ender_fishing);
     projectiles.add(ender_fishing);
-
     ItemRegistry.register(ender_wool, "ender_wool", GuideCategory.ITEMTHROW);
     EntityProjectileRegistry.registerModEntity(EntityShearingBolt.class, "woolbolt", 1003);
     EntityShearingBolt.renderSnowball = ender_wool;
- //   ItemRegistry.registerWithJeiDescription(ender_wool);
+    //   ItemRegistry.registerWithJeiDescription(ender_wool);
     projectiles.add(ender_wool);
-  
     ItemRegistry.register(ender_torch, "ender_torch", GuideCategory.ITEMTHROW);
     EntityProjectileRegistry.registerModEntity(EntityTorchBolt.class, "torchbolt", 1002);
     EntityTorchBolt.renderSnowball = ender_torch;
-   // ItemRegistry.registerWithJeiDescription(ender_torch);
+    // ItemRegistry.registerWithJeiDescription(ender_torch);
     projectiles.add(ender_torch);
-
     ItemRegistry.register(ender_water, "ender_water", GuideCategory.ITEMTHROW);
     EntityProjectileRegistry.registerModEntity(EntityWaterBolt.class, "waterbolt", 1000);
     EntityWaterBolt.renderSnowball = ender_water;
-   // ItemRegistry.registerWithJeiDescription(ender_water);
+    // ItemRegistry.registerWithJeiDescription(ender_water);
     projectiles.add(ender_water);
-
     ItemRegistry.register(ender_snow, "ender_snow", GuideCategory.ITEMTHROW);
     EntityProjectileRegistry.registerModEntity(EntitySnowballBolt.class, "frostbolt", 1001);
     EntitySnowballBolt.renderSnowball = ender_snow;
-//     ItemRegistry.registerWithJeiDescription(ender_snow);
+    //     ItemRegistry.registerWithJeiDescription(ender_snow);
     projectiles.add(ender_snow);
- 
     ItemRegistry.register(ender_lightning, "ender_lightning", GuideCategory.ITEMTHROW);
     EntityProjectileRegistry.registerModEntity(EntityLightningballBolt.class, "lightningbolt", 999);
     EntityLightningballBolt.renderSnowball = ender_lightning;
     LootTableRegistry.registerLoot(ender_lightning);
-//    ItemRegistry.registerWithJeiDescription(ender_lightning);
+    //    ItemRegistry.registerWithJeiDescription(ender_lightning);
     projectiles.add(ender_lightning);
-
     ItemRegistry.register(dynamite_safe, "dynamite_safe", GuideCategory.ITEMTHROW);
     GuideItem page = GuideRegistry.register(GuideCategory.ITEMTHROW, dynamite_safe);
     EntityProjectileRegistry.registerModEntity(EntityDynamiteBlockSafe.class, "tntblocksafebolt", 1009);
     EntityDynamiteBlockSafe.renderSnowball = dynamite_safe;
     projectiles.add(dynamite_safe);
-
-
     ItemRegistry.register(magic_net, "magic_net", GuideCategory.ITEMTHROW);
     EntityMagicNetEmpty.renderSnowball = magic_net;
     EntityMagicNetFull.renderSnowball = magic_net;
     EntityProjectileRegistry.registerModEntity(EntityMagicNetFull.class, "magicnetfull", 1011);
     EntityProjectileRegistry.registerModEntity(EntityMagicNetEmpty.class, "magicnetempty", 1012);
     projectiles.add(magic_net);
-
     ItemRegistry.register(dynamite_mining, "dynamite_mining", GuideCategory.ITEMTHROW);
-      GuideRegistry.register(GuideCategory.ITEMTHROW, dynamite_mining);
+    GuideRegistry.register(GuideCategory.ITEMTHROW, dynamite_mining);
     EntityProjectileRegistry.registerModEntity(EntityDynamiteMining.class, "tntminingbolt", 1010);
     EntityDynamiteMining.renderSnowball = dynamite_mining;
-    projectiles.add(dynamite_mining); 
-
-     GuideRegistry.register(GuideCategory.ITEMTHROW, ender_tnt_1);
+    projectiles.add(dynamite_mining);
+    GuideRegistry.register(GuideCategory.ITEMTHROW, ender_tnt_1);
     EntityProjectileRegistry.registerModEntity(EntityDynamite.class, "tntbolt", 1007);
     EntityDynamite.renderSnowball = ender_tnt_1;
     projectiles.add(ender_tnt_1);
@@ -274,48 +323,29 @@ public class ItemRegistry {
     projectiles.add(ender_tnt_4);
     projectiles.add(ender_tnt_5);
     projectiles.add(ender_tnt_6);
-//    page.findRecipes=true;
+    //    page.findRecipes=true;
     //first the basic recipes
-//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_1, 12), new ItemStack(Blocks.TNT), "paper", new ItemStack(Items.CLAY_BALL), "enderpearl"));
-//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_1), new ItemStack(ender_tnt_1), new ItemStack(Items.CLAY_BALL)));
-//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_2), new ItemStack(Items.CLAY_BALL)));
-//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_3), new ItemStack(Items.CLAY_BALL)));
-//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_5), new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_4), new ItemStack(Items.CLAY_BALL)));
-//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_6), new ItemStack(ender_tnt_5), new ItemStack(ender_tnt_5), new ItemStack(Items.CLAY_BALL)));
-//    //default recipes are added already insice the IRecipe
-//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_1), new ItemStack(ender_tnt_1), new ItemStack(ender_tnt_1), new ItemStack(ender_tnt_1), new ItemStack(Items.CLAY_BALL)));
-//    //two 3s is four 2s
-//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_2), new ItemStack(Items.CLAY_BALL)));
-//    //four 3s is two 4s is one 5
-//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_5), new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_3), new ItemStack(Items.CLAY_BALL)));
-//    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_6), new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_4), new ItemStack(Items.CLAY_BALL)));
-// 
-    
-    
+    //    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_1, 12), new ItemStack(Blocks.TNT), "paper", new ItemStack(Items.CLAY_BALL), "enderpearl"));
+    //    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_1), new ItemStack(ender_tnt_1), new ItemStack(Items.CLAY_BALL)));
+    //    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_2), new ItemStack(Items.CLAY_BALL)));
+    //    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_3), new ItemStack(Items.CLAY_BALL)));
+    //    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_5), new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_4), new ItemStack(Items.CLAY_BALL)));
+    //    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_6), new ItemStack(ender_tnt_5), new ItemStack(ender_tnt_5), new ItemStack(Items.CLAY_BALL)));
+    //    //default recipes are added already insice the IRecipe
+    //    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_1), new ItemStack(ender_tnt_1), new ItemStack(ender_tnt_1), new ItemStack(ender_tnt_1), new ItemStack(Items.CLAY_BALL)));
+    //    //two 3s is four 2s
+    //    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_2), new ItemStack(ender_tnt_2), new ItemStack(Items.CLAY_BALL)));
+    //    //four 3s is two 4s is one 5
+    //    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_5), new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_3), new ItemStack(ender_tnt_3), new ItemStack(Items.CLAY_BALL)));
+    //    page.addRecipePage(RecipeRegistry.addShapelessRecipe(new ItemStack(ender_tnt_6), new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_4), new ItemStack(ender_tnt_4), new ItemStack(Items.CLAY_BALL)));
+    // 
     LootTableRegistry.registerLoot(ender_tnt_6);
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     ItemRegistry.register(ender_tnt_1, "ender_tnt_1", null);
     ItemRegistry.register(ender_tnt_2, "ender_tnt_2", null);
     ItemRegistry.register(ender_tnt_3, "ender_tnt_3", null);
     ItemRegistry.register(ender_tnt_4, "ender_tnt_4", null);
     ItemRegistry.register(ender_tnt_5, "ender_tnt_5", null);
     ItemRegistry.register(ender_tnt_6, "ender_tnt_6", null);
-    
-    
-    
-    
     ItemRegistry.register(emerald_carrot, "horse_upgrade_type");
     ItemRegistry.register(lapis_carrot, "horse_upgrade_variant");
     ItemRegistry.register(diamond_carrot, "horse_upgrade_health");

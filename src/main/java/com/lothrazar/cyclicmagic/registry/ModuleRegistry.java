@@ -2,11 +2,10 @@ package com.lothrazar.cyclicmagic.registry;
 import java.util.ArrayList;
 import java.util.List;
 import com.lothrazar.cyclicmagic.IHasConfig; 
-import com.lothrazar.cyclicmagic.module.BlockConfigModule;
+import com.lothrazar.cyclicmagic.module.ConfigModule;
 import com.lothrazar.cyclicmagic.module.CommandModule;
 import com.lothrazar.cyclicmagic.module.DispenserBehaviorModule;
-import com.lothrazar.cyclicmagic.module.EnchantModule;
-import com.lothrazar.cyclicmagic.module.EntityMinecartModule;
+import com.lothrazar.cyclicmagic.module.EnchantModule; 
 import com.lothrazar.cyclicmagic.module.EnvironmentTweaksModule;
 import com.lothrazar.cyclicmagic.module.FragileTorchesModule;
 import com.lothrazar.cyclicmagic.module.FuelAdditionModule;
@@ -42,7 +41,7 @@ public class ModuleRegistry {
   }
   public static void registerAll() {
     // :) http://alphabetizer.flap.tv/ 
-    register(new BlockConfigModule());
+    register(new ConfigModule());
     register(new CommandModule());
     register(new ItemConsumeablesModule());
   
@@ -63,10 +62,8 @@ public class ModuleRegistry {
     register(new GearSandstoneModule());
     register(new EnvironmentTweaksModule());
     register(new StackSizeModule());
-    register(new ItemToolsModule());
     register(new VillagerCreateModule());
     register(new WorldGenModule());
-    register(new GearPurpleModule());
-    register(new EntityMinecartModule());
+    register(new GearPurpleModule()); 
   }
 }

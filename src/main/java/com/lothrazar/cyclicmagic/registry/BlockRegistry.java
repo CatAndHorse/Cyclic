@@ -108,6 +108,10 @@ public class BlockRegistry {
   public static BlockMinerSmart block_miner_smart = new BlockMinerSmart();
   public static BlockUser block_user = new BlockUser();
   public static BlockCropMagicBean sprout = new BlockCropMagicBean();
+  
+  
+  
+  
   public static void init() {
     initBlocks();
     initTileEntities();
